@@ -30,4 +30,8 @@ yarn-error.log*
 
 # vercel
 .vercel
-./secrets.json
+
+# credentials
+secret.json
+
+.vs
