@@ -1,5 +1,3 @@
-import SpreadsheetData from './libs/sheet';
-
 export default function Home() {
-    return <SpreadsheetData />;
+    return <div></div>;
 }
