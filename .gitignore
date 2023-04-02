@@ -35,3 +35,4 @@ yarn-error.log*
 secret.json
 
 .vs
+/secrets.json
