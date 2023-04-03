@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src",
+    "\\src\\pages",
+    "\\src\\pages\\sheet"
   ],
-  "SelectedNode": "\\C:\\Users\\sedad\\Source\\Repos\\BarususPokemon",
+  "SelectedNode": "\\src\\pages\\index.js",
   "PreviewInSolutionExplorer": false
 }
