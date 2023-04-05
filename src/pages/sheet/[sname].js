@@ -2,19 +2,19 @@ import { google } from 'googleapis';
 
 export async function getServerSideProps({ query }) {
 
-    const auth = new GoogleAuth({
-        credentials: {
-            client_id: process.env.GOOGLE_CLIENT_ID,
-            client_email: process.env.GOOGLE_CLIENT_EMAIL,
-            project_id: process.env.GOOGLE_PROJECT_ID,
-            private_key: process.env.GOOGLE_PRIVATE_KEY
-        },
-        scopes: [
-            'https://www.googleapis.com/auth/spreadsheets.readonly'
-        ]
-    });
+    const credential = JSON.parse(
+        Buffer.from(process.env.GOOGLE_SERVICE_KEY, "base64").toString().replace(/\n/g, "")
+    );
 
-    const sheets = google.sheets({ version: 'v4', auth });
+    const target = ['https://www.googleapis.com/auth/spreadsheets.readonly'];
+    const jwt = new google.auth.JWT(
+        credential.client_email,
+        null,
+        credential.private_key,
+        target
+    );
+
+    const sheets = google.sheets({ version: 'v4', auth: jwt });
 
     const { sname } = query;
     const range = `Shiny Eggs!A${sname}:C${sname}`;
