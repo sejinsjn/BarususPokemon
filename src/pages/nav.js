@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 export default function Nav() {
-    return <nav className="navbar navbar-expand-lg navbar-dark">
+    return <nav className="navbar navbar-expand navbar-dark">
         <div className="container-fluid">
             <button
                 className="navbar-toggler"
