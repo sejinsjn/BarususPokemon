@@ -1,6 +1,7 @@
 import Nav from "../nav";
 import styles from "../components/Sheetname.module.css"
 import { google } from 'googleapis';
+import Image from 'next/image'
 
 export async function getServerSideProps({ query }) {
 
@@ -69,10 +70,11 @@ export async function getServerSideProps({ query }) {
 }
 
 function Card(sheetnames) {
+    var id = 4;
     console.log(sheetnames);
     const listEvents = sheetnames.map((title) =>
-        <div className="event-card">
-            <img className="card-img-top" src="..." alt="Card image cap"></img>
+        <div className="event-card" key={ id++ }>
+            <Image className="event-image" src="/barusu.jpg" height="150" width="150" alt="Card image cap"></Image>
             <div className="card-body">
                 <h6 className="card-title">{title}</h6>
             </div>
