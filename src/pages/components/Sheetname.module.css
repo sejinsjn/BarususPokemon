@@ -1,0 +1,12 @@
+.event-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-flow: row;
+    margin: auto;
+    width: 100px;
+    background: #ff851b;
+}
+
+.event-card {
+    flex-basis: auto;
+}
