@@ -100,10 +100,10 @@ export async function getServerSideProps({ query }) {
 }
 
 function JsonDataDisplay(sheetJson) {
-    console.log(sheetJson[0][0]);
+    var id = 4;
     const DisplayData = sheetJson.map(
         (row) => 
-            <tr>
+            <tr key={id++}>
                 <td>{row[1]}</td>
                 <td>{row[2]}</td>
                 <td>{row[5]}</td>
