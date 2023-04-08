@@ -35,15 +35,24 @@ nav {
 }
 
 .event-card {
-    height: 250px;
-    width: 12%;
+    height: 100px;
+    width: 20%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    padding: 16px;
     margin: 16px;
     text-align: center;
     margin-bottom: 20px;
     background: #ff851b;
     border-radius: 15px;
+    position: relative;
+}
+
+.event-card a {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-decoration: none;
 }
 
 @media screen and (max-width: 1800px) {

@@ -1,7 +1,5 @@
 import Nav from "../nav";
-import styles from "../components/Sheetname.module.css"
 import { google } from 'googleapis';
-import Image from 'next/image'
 import Link from 'next/link'
 
 export async function getServerSideProps({ query }) {
@@ -50,50 +48,6 @@ export async function getServerSideProps({ query }) {
         return sheet.properties.title
     });
 
-
-
-
-    /*
-    for (const sheet of sheets) {
-        const title = sheet.properties.title;
-        const values = sheet.values;
-        console.log(sheet)
-        const item = [];
-        const range = `${ title }!A4:P4`;
-    }
-    const events = [];
-    const pokedexNr = [];
-    const shiny = [];
-
-    for (const title of sheetnames) {
-        const item = [];
-        const range = `${title}!A4:P4`;
-        const response = await googlesheets.spreadsheets.values.get({
-            spreadsheetId,
-            range,
-        });
-        item.push(title);
-        item.push(response.data.values[0][0]);
-        item.push(response.data.values[0][4]);
-        events.push(item);
-    }
-
-
-    const response = await sheets.spreadsheets.values.get({
-        spreadsheetId: spreadsheetId,
-        range,
-    });
-
-    const [title, content] = response.data.values[0];
-    console.log(title, content)
-
-    return {
-        props: {
-            title,
-            content
-        }
-    }*/
-
     return {
         props: {
             sheetname,
@@ -104,18 +58,22 @@ export async function getServerSideProps({ query }) {
 
 function Card(sheet, sheetnames) {
     var id = 4;
-    const listEvents = sheetnames.map((sheetname) =>
-        <div className="event-card" key={ id++ }>
-            
-            <Link className="card-body" href={{
-                pathname: `/sheet/[sheet]/[sheetname]`,
-                query: { sheetname: sheetname }
-            }}
-                as={`/sheet/${sheet}/${sheetname}`}>
-                <h6 className="card-title">{sheetname}</h6>
-            </Link>
-        </div>
-    );
+    const listEvents = sheetnames.map((sheetname) => {
+        if (!sheetname.includes("Template")) {
+            if (!sheetname.includes("Yahallo")) {
+                return <div className="event-card" key={id++}>
+
+                    <Link className="card-body" href={{
+                        pathname: `/sheet/[sheet]/[sheetname]`,
+                        query: { sheetname: sheetname }
+                    }}
+                        as={`/sheet/${sheet}/${sheetname}`}>
+                        <h6 className="card-title">{sheetname}</h6>
+                    </Link>
+                </div>
+            }
+        }
+    });
 
     return <div className="event-container">
         {listEvents}

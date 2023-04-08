@@ -1,8 +1,5 @@
 import Nav from "../../nav";
 import { google } from 'googleapis';
-import Image from 'next/image'
-import Link from 'next/link'
-import { Router } from 'next/router';
 
 export async function getServerSideProps({ query }) {
 
@@ -49,48 +46,6 @@ export async function getServerSideProps({ query }) {
     });
 
     const sheetJson = sheet.data.values;
-
-    /*
-    for (const sheet of sheets) {
-        const title = sheet.properties.title;
-        const values = sheet.values;
-        console.log(sheet)
-        const item = [];
-        const range = `${ title }!A4:P4`;
-    }
-
-    const events = [];
-    const pokedexNr = [];
-    const shiny = [];
-
-    for (const title of sheetnames) {
-        const item = [];
-        const range = `${title}!A4:P4`;
-        const response = await googlesheets.spreadsheets.values.get({
-            spreadsheetId,
-            range,
-        });
-        item.push(title);
-        item.push(response.data.values[0][0]);
-        item.push(response.data.values[0][4]);
-        events.push(item);
-    }
-
-
-    const response = await sheets.spreadsheets.values.get({
-        spreadsheetId: spreadsheetId,
-        range,
-    });
-
-    const [title, content] = response.data.values[0];
-    console.log(title, content)
-
-    return {
-        props: {
-            title,
-            content
-        }
-    }*/
 
     return {
         props: {
