@@ -21,19 +21,24 @@ export async function getServerSideProps({ query }) {
     const { sheetname } = query;
 
     var spreadsheetId = "";
+    var showEventName = false;
 
     switch (sheetname) {
         case "fortrade":
             spreadsheetId = process.env.SHEET_FORTRADE;
+            showEventName = true;
             break;
         case "gen8events":
             spreadsheetId = process.env.SHEET_GEN8;
+            showEventName = false;
             break;
         case "gen9events":
             spreadsheetId = process.env.SHEET_GEN9;
+            showEventName = false;
             break;
         case "mycollection":
             spreadsheetId = process.env.SHEET_MYCOLLECTION;
+            showEventName = true;
             break;
         default:
             spreadsheetId = process.env.SHEET_FORTRADE;
@@ -49,62 +54,108 @@ export async function getServerSideProps({ query }) {
 
     return {
         props: {
-            sheetJson
+            sheetJson,
+            event,
+            showEventName
         }
     }
 }
 
-function JsonDataDisplay(sheetJson) {
+function JsonDataDisplayTbody(showEventName, sheetJson) {
     var id = 4;
-    const DisplayData = sheetJson.map(
-        (row) => 
-            <tr key={id++}>
-                <td>{row[1]}</td>
-                <td>{row[2]}</td>
-                <td>{row[5]}</td>
-                <td>{row[7]}</td>
-                <td>{row[8]}</td>
-                <td>{row[9]}</td>
-                <td>{row[10]}</td>
-                <td>{row[11]}</td>
-                <td>{row[12]}</td>
-                <td>{row[13]}</td>
-                <td>{row[14]}</td>
-                <td>{row[15]}</td>
-                <td>{row[16]}</td>
-                <td>{row[18]}</td>
-            </tr >
-        )
 
-    return <tbody>
-        {DisplayData}
-    </tbody>
+    if (showEventName)
+        return sheetJson.map(
+            (row) =>
+                <tr key={id++}>
+                    <td>{row[1]}</td>
+                    <td>{row[2]}</td>
+                    <td>{row[3]}</td>
+                    <td>{row[6]}</td>
+                    <td>{row[8]}</td>
+                    <td>{row[9]}</td>
+                    <td>{row[10]}</td>
+                    <td>{row[11]}</td>
+                    <td>{row[12]}</td>
+                    <td>{row[13]}</td>
+                    <td>{row[14]}</td>
+                    <td>{row[15]}</td>
+                    <td>{row[16]}</td>
+                    <td>{row[17]}</td>
+                </tr >
+        )
+    else
+        return sheetJson.map(
+            (row) =>
+                <tr key={id++}>
+                    <td>{row[1]}</td>
+                    <td>{row[2]}</td>
+                    <td>{row[5]}</td>
+                    <td>{row[7]}</td>
+                    <td>{row[8]}</td>
+                    <td>{row[9]}</td>
+                    <td>{row[10]}</td>
+                    <td>{row[11]}</td>
+                    <td>{row[12]}</td>
+                    <td>{row[13]}</td>
+                    <td>{row[14]}</td>
+                    <td>{row[15]}</td>
+                    <td>{row[16]}</td>
+
+                </tr >
+        )
 }
 
-export default function Post({ sheetJson }) {
+function JsonDataDisplayThead(showEventName) {
+    var id = 4;
+
+    if (showEventName)
+        return <tr>
+            <th scope="col">Marking</th>
+            <th scope="col">Lang</th>
+            <th scope="col">Event</th>
+            <th scope="col">Ball</th>
+            <th scope="col">Ability</th>
+            <th scope="col">Nature</th>
+            <th scope="col">Lvl</th>
+            <th scope="col">Gender</th>
+            <th scope="col">IVs</th>
+            <th scope="col">OT/ID</th>
+            <th scope="col">Date</th>
+            <th scope="col">Proof</th>
+            <th scope="col">Trade History</th>
+            <th scope="col">Disclosure</th>
+        </tr>
+    else
+        return <tr>
+            <th scope="col">Marking</th>
+            <th scope="col">Lang</th>
+            <th scope="col">Ball</th>
+            <th scope="col">Ability</th>
+            <th scope="col">Nature</th>
+            <th scope="col">Lvl</th>
+            <th scope="col">Gender</th>
+            <th scope="col">IVs</th>
+            <th scope="col">OT/ID</th>
+            <th scope="col">Date</th>
+            <th scope="col">Proof</th>
+            <th scope="col">Trade History</th>
+            <th scope="col">Disclosure</th>
+        </tr>
+}
+
+export default function Post({ showEventName, event, sheetJson }) {
     return <div>
         <Nav />
-        <div>
-            <table className="table table-striped table-dark">
+        <div className="event-table-container">
+            <h3>{event }</h3>
+            <table className="event-table">
                 <thead>
-                    <tr>
-                        <th scope="col">Marking</th>
-                        <th scope="col">Lang</th>
-                        <th scope="col">Ball</th>
-                        <th scope="col">Ability</th>
-                        <th scope="col">Nature</th>
-                        <th scope="col">Lvl</th>
-                        <th scope="col">Gender</th>
-                        <th scope="col">IVs</th>
-                        <th scope="col">OT/ID</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Proof</th>
-                        <th scope="col">Trade History</th>
-                        <th scope="col">Disclosure</th>
-                        <th scope="col">Rule3 CopyPasta</th>
-                    </tr>
+                    {JsonDataDisplayThead(showEventName)}
                 </thead>
-                    {JsonDataDisplay(sheetJson)}
+                <tbody>
+                    {JsonDataDisplayTbody(showEventName, sheetJson)}
+                </tbody>
             </table>
         </div>
     </div>
