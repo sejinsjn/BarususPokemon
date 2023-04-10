@@ -147,8 +147,8 @@ function JsonDataDisplayThead(showEventName) {
 export default function Post({ showEventName, event, sheetJson }) {
     return <div>
         <Nav />
+        <h3 className="event-name">{event}</h3>
         <div className="event-table-container">
-            <h3>{event }</h3>
             <table className="event-table">
                 <thead>
                     {JsonDataDisplayThead(showEventName)}
