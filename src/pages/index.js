@@ -1,4 +1,5 @@
 import Nav from "./nav";
+import Link from 'next/link'
 
 export default function Home() {
     return <div>
@@ -13,7 +14,7 @@ export default function Home() {
                     You will find my whole Pokemon Collection here but also <br />
                     stuff about me like my wishlist.
                 </p>
-                <a className="btn" href="/sheet/fortrade">Straight to my ForTrade</a>
+                <Link className="btn" href="/sheet/fortrade">Straight to my ForTrade</Link>
             </div>
             <div className="i-frame">
                 Picture
