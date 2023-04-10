@@ -88,7 +88,49 @@ export default function Home() {
             </div>
         </section>
         <section className="pokemon">
-            
+            <div className="pokemon-container">
+                <div className="pokemon-header">
+                    <h3>My Pokemon</h3>
+                </div>
+                <div className="pokemon-body">
+                    <div className="pokemon-card">
+                        <div className="pokemon-link">
+                            <Link className="" href="/sheet/fortrade">For Trade</Link>
+                        </div>
+                        <div className="pokemon-description">
+                            <p>You will find all my Pokemon here that are actively for trade
+                                such as Shiny Eggs, Mythicals and Gen8-Events.</p>
+                        </div>
+                    </div>
+                    <div className="pokemon-card">
+                        <div className="pokemon-link">
+                            <Link className="" href="/sheet/gen8events">Gen 8 Events</Link>
+                        </div>
+                        <div className="pokemon-description">
+                            <p>Here are all my Events that I farmed in Gen8. I have multiple of
+                                most of these.</p>
+                        </div>
+                    </div>
+                    <div className="pokemon-card">
+                        <div className="pokemon-link">
+                            <Link className="" href="/sheet/gen9events">Gen 9 Events</Link>
+                        </div>
+                        <div className="pokemon-description">
+                            <p>Here are my Events that are farmed in Gen9. This will be updated
+                                with new distributions.</p>
+                        </div>
+                    </div>
+                    <div className="pokemon-card">
+                        <div className="pokemon-link">
+                            <Link className="" href="/sheet/mycollection">My Collection</Link>
+                        </div>
+                        <div className="pokemon-description">
+                            <p>You will find my private Collection here. This stuff will most likely
+                                stay NFT. Ill move some stuff to the FT when I get a better replacement.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
      </div>
 }
