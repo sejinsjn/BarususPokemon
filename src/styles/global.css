@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&family=Nunito+Sans&display=swap');
 
 :root {
     --main-color: #001f3f;
@@ -17,6 +18,7 @@ body {
     overflow-x: hidden;
     color: white;
     scroll-behavior: smooth;
+    font-family: 'Nunito', sans-serif;
 }
 
 body {
@@ -166,15 +168,27 @@ nav ul li {
 }
 
 .intro {
+    background-color: #005b66;
+    width: 100%;
+    height: 750px;
+    margin-bottom: 100px;
+}
+
+.intro .container {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1.9rem;
-    max-width: 1100px;
-    margin: 200px auto;
+    margin: auto;
+    max-width: 80%;
+    height: 100%;
 }
 
-.intro-text h2 {
+.intro-text, .i-frame, .aboutme-header, .aboutme-body, .wishlist-header, .wishlist-body {
+    margin: auto;
+}
+
+.intro-text h2, .aboutme-header h2, .wishlist-header h2 {
     font-size: 3rem;
     margin-bottom: 1rem;
 }
@@ -183,7 +197,7 @@ nav ul li {
     text-decoration: none;
     color: var(--primary-color);
     font-weight: var(--bold-font);
-    background-color: #005b66;
+    background-color: #047a89;
     border: none;
     color: white;
     padding: 8px 16px;
@@ -212,4 +226,62 @@ nav ul li {
 .intro-text > .btn:hover::after, .intro-text > .btn.active-nav::after {
     width: 100%;
     background: var(--nav-item-hover-color);
+}
+
+.aboutme, .wishlist{
+    margin: 100px 0;
+    width: 100%;
+    height: 400px;
+}
+
+.aboutme .container, .wishlist .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.9rem;
+    margin: auto;
+    max-width: 80%;
+    height: 100%;
+}
+
+.aboutme-body, .wishlist-body {
+    display: flex;
+    align-items: center;
+    gap: 1.9rem;
+    margin: auto;
+    max-width: 85%;
+    flex-wrap: wrap;
+    justify-content: center;
+    color: var(--main-color);
+}
+
+.aboutme-card, .wishlist-card {
+    background: #ff851b;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+}
+
+.aboutme-card div, .wishlist-card p{
+    padding: 16px;
+    height: 100px;
+    width: 300px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.wishlist-card p {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+    @media screen and (max-width: 1000px) {
+        .aboutme, .wishlist {
+        margin-top: 100px;
+        width: 100%;
+        height: auto;
+    }
 }
