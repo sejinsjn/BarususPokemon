@@ -101,6 +101,7 @@ nav ul li {
     background: #ff851b;
     border-radius: 15px;
     position: relative;
+    font-size: 1.5rem;
 }
 
 .event-card a {
@@ -110,6 +111,7 @@ nav ul li {
     left: 50%;
     transform: translate(-50%, -50%);
     text-decoration: none;
+    color: var(--main-color);
 }
 
 @media screen and (max-width: 1800px) {
@@ -268,6 +270,7 @@ nav ul li {
     align-items: center;
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 
 .wishlist-card p {

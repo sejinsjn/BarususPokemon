@@ -1,9 +1,9 @@
 import Nav from "./nav";
 import Link from 'next/link'
 import React from "react";
+import Clock from 'react-live-clock';
 
 export default function Home() {
-
     return <div>
         <Nav />
         <section className="intro">
@@ -39,7 +39,10 @@ export default function Home() {
                     <div className="aboutme-card">
                         <div>
                             <h4>My current time</h4>
-                            <p>Now</p>
+                            <p><Clock
+                                format={'HH:mm'}
+                                ticking={true}
+                                timezone={'Europe/Berlin'} /></p>
                         </div>
                     </div>
                     <div className="aboutme-card">
