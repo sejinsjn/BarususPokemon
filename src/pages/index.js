@@ -4,6 +4,13 @@ import React from "react";
 import Clock from 'react-live-clock';
 
 export default function Home() {
+    const [time, setTime] = React.useState(new Date());
+
+    React.useEffect(() => {
+        setInterval(() => {
+            setTime(new Date());
+        }, 1000);
+    }, []);
     return <div>
         <Nav />
         <section className="intro">
@@ -39,10 +46,13 @@ export default function Home() {
                     <div className="aboutme-card">
                         <div>
                             <h4>My current time</h4>
-                            <p><Clock
-                                format={'HH:mm'}
-                                ticking={true}
-                                timezone={'Europe/Berlin'} /></p>
+                            <p>{time.toLocaleString("en-US", {
+
+                                dateStyle: "full",
+                                timeStyle: "medium",
+                                hour12: false,
+
+                            })}</p>
                         </div>
                     </div>
                     <div className="aboutme-card">
