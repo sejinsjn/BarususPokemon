@@ -58,14 +58,15 @@ export async function getServerSideProps({ query }) {
 
 function Card(sheet, sheetnames) {
     var id = 4;
-    const listEvents = sheetnames.map((sheetname) => {
+    const listEvents = sheetnames.map((sheetname, index) => {
         if (!sheetname.includes("Template")) {
             if (!sheetname.includes("Yahallo")) {
-                return <div className="event-card" key={id++}>
 
+                console.log(sheetname + " " + sheetnames[index + 1]);
+                return <div className="event-card" key={id++}>
                     <Link className="card-body" href={{
                         pathname: `/sheet/[sheet]/[sheetname]`,
-                        query: { sheetname: sheetname }
+                        query: { sheet: sheet, sheetname: sheetname, nextsheet: sheetnames[index+1] }
                     }}
                         as={`/sheet/${sheet}/${sheetname}`}>
                         <h6 className="card-title">{sheetname}</h6>

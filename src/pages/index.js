@@ -1,12 +1,12 @@
-import Nav from "./nav";
 import Link from 'next/link'
 import React from "react";
 import Clock from 'react-live-clock';
+import HomeNav from "./components/homeNav";
 
 export default function Home() {
     return <div>
-        <Nav />
-        <section className="intro">
+        <HomeNav />
+        <section className="intro" id="home">
             <div className="container">
                 <div className="intro-text">
                     <h2>
@@ -24,7 +24,7 @@ export default function Home() {
                 </div>
             </div>
         </section>
-        <section className="aboutme">
+        <section className="aboutme" id="aboutme">
             <div className="container">
                 <div className="aboutme-header">
                     <h2>About me</h2>
@@ -60,7 +60,7 @@ export default function Home() {
                 </div>
             </div>
         </section>
-        <section className="wishlist">
+        <section className="wishlist" id="mywishlist">
             <div className="container">
                 <div className="wishlist-header">
                     <h2>Wishlist</h2>
@@ -87,7 +87,7 @@ export default function Home() {
                 </div>
             </div>
         </section>
-        <section className="pokemon">
+        <section className="pokemon" id="mypokemon">
             <div className="pokemon-container">
                 <div className="pokemon-header">
                     <h3>My Pokemon</h3>

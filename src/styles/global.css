@@ -25,6 +25,8 @@ body {
     background-color: var(--main-color);
 }
 
+/* Navigation bar -> HomeNav and Nav */
+
 nav {
     background-color: var(--main-color) !important;
     display: flex;
@@ -81,6 +83,8 @@ nav ul li {
     background: var(--nav-item-hover-color);
 }
 
+/* Display of all Events as cards -> [sheetname] */
+
 .event-container {
     display: flex;
     flex-wrap: wrap;
@@ -114,6 +118,26 @@ nav ul li {
     color: var(--main-color);
 }
 
+.event-card a:hover {
+    color: var(--main-color);
+}
+
+.event-card > a::after {
+    content: "";
+    display: block;
+    margin: auto;
+    height: 3px;
+    width: 0;
+    top: 5px;
+    background: transparent;
+    transition: all 0.3s;
+}
+
+.event-card > a:hover::after, .event-card > a.active-nav::after {
+    width: 100%;
+    background: var(--main-color);
+}
+
 @media screen and (max-width: 1800px) {
     .event-card {
         width: 20%;
@@ -137,6 +161,8 @@ nav ul li {
         margin-bottom: 20px;
     }
 }
+
+/* Table -> [event] */
 
 .event-image{
     width: 100%;
@@ -168,6 +194,23 @@ nav ul li {
 .event-table tr:nth-child(even) {
     background-color: #047a89;
 }
+
+.table-nav {
+    display: flex;
+    justify-content: center;
+    width: 500px;
+    margin: auto;
+}
+
+.table-nav span{
+    margin: auto;
+}
+
+.tableSprite{
+    object-fit: contain;
+}
+
+/* Landing Page sections */
 
 .intro {
     background-color: #005b66;
@@ -251,7 +294,6 @@ nav ul li {
     align-items: center;
     gap: 1.9rem;
     margin: auto;
-    max-width: 85%;
     flex-wrap: wrap;
     justify-content: center;
     color: var(--main-color);
@@ -261,6 +303,7 @@ nav ul li {
     background: #ff851b;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     border-radius: 15px;
+    width: 300px;
 }
 
 .aboutme-card div, .wishlist-card p{

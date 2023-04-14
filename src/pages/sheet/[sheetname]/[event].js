@@ -1,5 +1,7 @@
 import Nav from "../../nav";
 import { google } from 'googleapis';
+import Link from 'next/link'
+import Image from 'next/image'
 
 export async function getServerSideProps({ query }) {
 
@@ -56,7 +58,8 @@ export async function getServerSideProps({ query }) {
         props: {
             sheetJson,
             event,
-            showEventName
+            showEventName,
+            sheetname
         }
     }
 }
@@ -69,6 +72,7 @@ function JsonDataDisplayTbody(showEventName, sheetJson) {
             (row) =>
                 <tr key={id++}>
                     <td>{row[1]}</td>
+                    <td>{displaySprite(row[0], row[4])}</td>
                     <td>{row[2]}</td>
                     <td>{row[3]}</td>
                     <td>{row[6]}</td>
@@ -89,6 +93,7 @@ function JsonDataDisplayTbody(showEventName, sheetJson) {
             (row) =>
                 <tr key={id++}>
                     <td>{row[1]}</td>
+                    <td>{displaySprite(row[0], row[4])}</td>
                     <td>{row[2]}</td>
                     <td>{row[5]}</td>
                     <td>{row[7]}</td>
@@ -112,6 +117,7 @@ function JsonDataDisplayThead(showEventName) {
     if (showEventName)
         return <tr>
             <th scope="col">Marking</th>
+            <th scope="col">Sprite</th>
             <th scope="col">Lang</th>
             <th scope="col">Event</th>
             <th scope="col">Ball</th>
@@ -129,6 +135,7 @@ function JsonDataDisplayThead(showEventName) {
     else
         return <tr>
             <th scope="col">Marking</th>
+            <th scope="col">Sprite</th>
             <th scope="col">Lang</th>
             <th scope="col">Ball</th>
             <th scope="col">Ability</th>
@@ -144,10 +151,48 @@ function JsonDataDisplayThead(showEventName) {
         </tr>
 }
 
-export default function Post({ showEventName, event, sheetJson }) {
+function displaySprite(pokedexNr, isShiny) {
+    if (pokedexNr === undefined || pokedexNr === "") return <p></p>;
+
+    const swshShinyURL = "https://www.serebii.net/Shiny/SWSH/";
+    const swshNormalURL = "https://www.serebii.net/swordshield/pokemon/";
+    const svShinyURL = "https://www.serebii.net/Shiny/SV/new/";
+    const svNormalURL = "https://www.serebii.net/scarletviolet/pokemon/new/";
+
+    if (parseInt(pokedexNr) <= 905)
+        if (isShiny == "TRUE")
+            return loadIMG(swshShinyURL, pokedexNr);
+        else
+            return loadIMG(swshNormalURL, pokedexNr);
+    else
+        if (isShiny == "TRUE")
+            return loadIMG(svShinyURL, pokedexNr);
+        else
+            return loadIMG(svNormalURL, pokedexNr);
+}
+
+function loadIMG(url, pokedexNr) {
+    const loadSprite = ({ src }) => {
+        return `${url}${pokedexNr}.png`;
+    }
+
+    return (
+        <Image
+            loader={loadSprite}
+            className="tableSprite"
+            src={`${url}${pokedexNr}.png`}
+            width={50}
+            height={50}
+        />
+    );
+}
+
+export default function Post({ showEventName, event, sheetJson, sheetname }) {
     return <div>
         <Nav />
-        <h3 className="event-name">{event}</h3>
+        <div className="table-nav">
+            <h3 className="event-name">{event}</h3>
+        </div>
         <div className="event-table-container">
             <table className="event-table">
                 <thead>
