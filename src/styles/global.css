@@ -50,7 +50,9 @@ nav ul {
 }
 
 .nav-item {
-    margin-left: 2rem;
+    margin: 0 1.5rem;
+    text-align: center;
+    vertical-align: middle;
 }
 
 nav ul li {
@@ -61,6 +63,7 @@ nav ul li {
     text-decoration: none;
     color: var(--primary-color);
     font-weight: var(--bold-font);
+    vertical-align: middle;
 }
 
 .nav-item a:hover {
@@ -81,6 +84,17 @@ nav ul li {
 .nav-item > a:hover::after, .nav-item > a.active-nav::after {
     width: 100%;
     background: var(--nav-item-hover-color);
+}
+
+@media screen and (max-width: 850px) {
+    nav{
+        padding: 16px 0;
+    }
+
+    nav ul {
+        margin: auto;
+        padding: 0;
+    }
 }
 
 /* Display of all Events as cards -> [sheetname] */
