@@ -90,7 +90,7 @@ export default function Home() {
         <section className="pokemon" id="mypokemon">
             <div className="pokemon-container">
                 <div className="pokemon-header">
-                    <h3>My Pokemon</h3>
+                    <h2>My Pokemon</h2>
                 </div>
                 <div className="pokemon-body">
                     <div className="pokemon-card">

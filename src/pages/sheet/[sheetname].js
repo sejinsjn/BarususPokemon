@@ -69,7 +69,8 @@ function Card(sheet, sheetnames) {
                         query: { sheet: sheet, sheetname: sheetname, nextsheet: sheetnames[index+1] }
                     }}
                         as={`/sheet/${sheet}/${sheetname}`}>
-                        <h6 className="card-title">{sheetname}</h6>
+                        <span className="event-link"></span>
+                        <p className="card-title">{sheetname}</p>
                     </Link>
                 </div>
             }
