@@ -28,19 +28,19 @@ export async function getServerSideProps({ query }) {
     switch (sheetname) {
         case "fortrade":
             spreadsheetId = process.env.SHEET_FORTRADE;
-            showEventName = true;
+            showEventName = "fortrade";
             break;
         case "gen8events":
             spreadsheetId = process.env.SHEET_GEN8;
-            showEventName = false;
+            showEventName = "farmed";
             break;
         case "gen9events":
             spreadsheetId = process.env.SHEET_GEN9;
-            showEventName = false;
+            showEventName = "farmed";
             break;
         case "mycollection":
             spreadsheetId = process.env.SHEET_MYCOLLECTION;
-            showEventName = true;
+            showEventName = "mycollection";
             break;
         default:
             spreadsheetId = process.env.SHEET_FORTRADE;
@@ -67,15 +67,15 @@ export async function getServerSideProps({ query }) {
 function JsonDataDisplayTbody(showEventName, sheetJson) {
     var id = 4;
 
-    if (showEventName)
+    if (showEventName == "farmed")
         return sheetJson.map(
             (row) =>
                 <tr key={id++}>
                     <td>{row[1]}</td>
-                    <td>{displaySprite(row[0], row[4])}</td>
                     <td>{row[2]}</td>
-                    <td>{row[3]}</td>
-                    <td>{row[6]}</td>
+                    <td>{displaySprite(row[0], row[4])}</td>
+                    <td>{row[5]}</td>
+                    <td>{row[7]}</td>
                     <td>{row[8]}</td>
                     <td>{row[9]}</td>
                     <td>{row[10]}</td>
@@ -89,37 +89,57 @@ function JsonDataDisplayTbody(showEventName, sheetJson) {
                 </tr >
         )
     else
-        return sheetJson.map(
-            (row) =>
-                <tr key={id++}>
-                    <td>{row[1]}</td>
-                    <td>{displaySprite(row[0], row[4])}</td>
-                    <td>{row[2]}</td>
-                    <td>{row[5]}</td>
-                    <td>{row[7]}</td>
-                    <td>{row[8]}</td>
-                    <td>{row[9]}</td>
-                    <td>{row[10]}</td>
-                    <td>{row[11]}</td>
-                    <td>{row[12]}</td>
-                    <td>{row[13]}</td>
-                    <td>{row[14]}</td>
-                    <td>{row[15]}</td>
-                    <td>{row[16]}</td>
-
-                </tr >
-        )
+        if (showEventName == "fortrade")
+            return sheetJson.map(
+                (row) =>
+                    <tr key={id++}>
+                        <td>{row[1]}</td>
+                        <td>{row[2]}</td>
+                        <td>{displaySprite(row[0], row[5])}</td>
+                        <td>{row[3]}</td>
+                        <td>{row[6]}</td>
+                        <td>{row[8]}</td>
+                        <td>{row[9]}</td>
+                        <td>{row[10]}</td>
+                        <td>{row[11]}</td>
+                        <td>{row[12]}</td>
+                        <td>{row[13]}</td>
+                        <td>{row[14]}</td>
+                        <td>{row[15]}</td>
+                        <td>{row[16]}</td>
+                        <td>{row[17]}</td>
+                    </tr >
+            )
+        else
+            return sheetJson.map(
+                (row) =>
+                    <tr key={id++}>
+                        <td>{row[1]}</td>
+                        <td>{displaySprite(row[0], row[4])}</td>
+                        <td>{row[2]}</td>
+                        <td>{row[5]}</td>
+                        <td>{row[7]}</td>
+                        <td>{row[8]}</td>
+                        <td>{row[9]}</td>
+                        <td>{row[10]}</td>
+                        <td>{row[11]}</td>
+                        <td>{row[12]}</td>
+                        <td>{row[13]}</td>
+                        <td>{row[14]}</td>
+                        <td>{row[15]}</td>
+                        <td>{row[16]}</td>
+                    </tr >
+            )
 }
 
 function JsonDataDisplayThead(showEventName) {
     var id = 4;
 
-    if (showEventName)
+    if (showEventName == "farmed")
         return <tr>
             <th scope="col">Marking</th>
-            <th scope="col">Sprite</th>
             <th scope="col">Lang</th>
-            <th scope="col">Event</th>
+            <th scope="col">Sprite</th>
             <th scope="col">Ball</th>
             <th scope="col">Ability</th>
             <th scope="col">Nature</th>
@@ -133,22 +153,41 @@ function JsonDataDisplayThead(showEventName) {
             <th scope="col">Disclosure</th>
         </tr>
     else
-        return <tr>
-            <th scope="col">Marking</th>
-            <th scope="col">Sprite</th>
-            <th scope="col">Lang</th>
-            <th scope="col">Ball</th>
-            <th scope="col">Ability</th>
-            <th scope="col">Nature</th>
-            <th scope="col">Lvl</th>
-            <th scope="col">Gender</th>
-            <th scope="col">IVs</th>
-            <th scope="col">OT/ID</th>
-            <th scope="col">Date</th>
-            <th scope="col">Proof</th>
-            <th scope="col">Trade History</th>
-            <th scope="col">Disclosure</th>
-        </tr>
+        if (showEventName == "fortrade")
+            return <tr>
+                <th scope="col">Marking</th>
+                <th scope="col">Lang</th>
+                <th scope="col">Sprite</th>
+                <th scope="col">Event</th>
+                <th scope="col">Ball</th>
+                <th scope="col">Ability</th>
+                <th scope="col">Nature</th>
+                <th scope="col">Lvl</th>
+                <th scope="col">Gender</th>
+                <th scope="col">IVs</th>
+                <th scope="col">OT/ID</th>
+                <th scope="col">Date</th>
+                <th scope="col">Proof</th>
+                <th scope="col">Trade History</th>
+                <th scope="col">Disclosure</th>
+            </tr>
+        else
+            return <tr>
+                <th scope="col">Lang</th>
+                <th scope="col">Sprite</th>
+                <th scope="col">Event</th>
+                <th scope="col">Ball</th>
+                <th scope="col">Ability</th>
+                <th scope="col">Nature</th>
+                <th scope="col">Lvl</th>
+                <th scope="col">Gender</th>
+                <th scope="col">IVs</th>
+                <th scope="col">OT/ID</th>
+                <th scope="col">Date</th>
+                <th scope="col">Proof</th>
+                <th scope="col">Trade History</th>
+                <th scope="col">Disclosure</th>
+            </tr>
 }
 
 function displaySprite(pokedexNr, isShiny) {

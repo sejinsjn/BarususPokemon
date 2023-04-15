@@ -27,8 +27,7 @@ body {
 
 /* Navigation bar -> HomeNav and Nav */
 
-nav {
-    background-color: var(--main-color) !important;
+header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -40,13 +39,17 @@ nav {
     z-index: 1;
 }
 
-nav ul {
+nav {
     display: flex;
-    justify-content: space-between;
     margin-top: auto;
     margin-bottom: auto;
     margin-left: auto;
-    margin-right: 100px;
+    margin-right: 5%;
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-between;
 }
 
 .nav-item {
@@ -86,15 +89,104 @@ nav ul li {
     background: var(--nav-item-hover-color);
 }
 
+.nav > #nav-check {
+    display: none;
+}
+
 @media screen and (max-width: 850px) {
-    nav{
-        padding: 16px 0;
-    }
 
     nav ul {
-        margin: auto;
-        padding: 0;
+        flex-direction: column;
+        justify-content: start;
+        font-size: 2rem;
+        height: 70%;
     }
+
+    .nav-item {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        height: 15%;
+    }
+
+    .nav > .nav-btn {
+        display: inline-block;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+    }
+
+    .nav > .nav-btn > label {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        padding: 13px;
+    }
+
+    .nav > .nav-btn > label:hover, .nav #nav-check:checked ~ .nav-btn > label {
+        background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    .nav > .nav-btn > label > span {
+        display: block;
+        width: 25px;
+        height: 10px;
+        border-top: 2px solid #eee;
+    }
+
+    .nav > .nav-links {
+        position: absolute;
+        display: block;
+        width: 100%;
+        background-color: var(--main-color);
+        height: 0px;
+        transition: all 0.3s ease-in;
+        overflow-y: hidden;
+        top: 56px;
+        left: 0px;
+    }
+
+    .nav-item a:hover {
+        color: var(--nav-item-hover-color);
+    }
+
+    .nav-item > a::after {
+        content: "";
+        display: block;
+        margin: auto;
+        height: 3px;
+        width: 0;
+        top: 5px;
+        background: transparent;
+        transition: all 0.3s;
+    }
+
+    .nav-item > a:hover::after, .nav-item > a.active-nav::after {
+        width: 60%;
+        background: var(--nav-item-hover-color);
+    }
+
+    .nav > #nav-check {
+        display: none;
+    }
+
+    .nav > .nav-links > a {
+        display: block;
+    }
+
+    .nav > #nav-check:not(:checked) ~ .nav-links {
+        height: 0px;
+    }
+
+    .nav > #nav-check:checked ~ .nav-links {
+        height: calc(100vh - 50px);
+        overflow-y: auto;
+        overflow: hidden;
+    }
+
 }
 
 /* Display of all Events as cards -> [sheetname] */
