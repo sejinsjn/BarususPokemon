@@ -1,36 +1,24 @@
 import Link from 'next/link'
-
+import Script from 'next/script'
 
 export default function HomeNav() {
-    return <header className="nav">
-        <input type="checkbox" id="nav-check"/>
-        <div className="nav-header">
-            <div className="nav-title">
-                Barusu
-            </div>
-        </div>
-        <div className="nav-btn">
-            <label for="nav-check">
+    return <div id="header-container">
+        <link rel="stylesheet" href="/static/css/nav.css" />
+        <Script src="/static/js/script.js"></Script>
+        <header role="navigation">
+            <h2>Barusu</h2>
+            <nav id="nav-menu">
+                <input id="nav-check1" type="checkbox" />
                 <span></span>
                 <span></span>
                 <span></span>
-            </label>
-        </div>
-        <nav className="nav-links">
-                <ul>
-                    <li className="nav-item">
-                        <Link className="" aria-current="page" href="#home">Home</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="" href="#aboutme">About me</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="" href="#mywishlist">My Wishlist</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="" href="#mypokemon">My Pokemon</Link>
-                    </li>
+                <ul id="nav-links">
+                    <li><Link className="nav-item ni1" href="#home">Home</Link></li>
+                    <li><Link className="nav-item ni1" href="#aboutme">About Me</Link></li>
+                    <li><Link className="nav-item ni1" href="#mywishlist">My Wishlist</Link></li>
+                    <li><Link className="nav-item ni1" href="#mypokemon">My Pokemon</Link></li>
                 </ul>
-        </nav>
-    </header>
+            </nav>
+        </header>
+    </div>
 }

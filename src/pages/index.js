@@ -1,3 +1,4 @@
+import Script from 'next/script'
 import Link from 'next/link'
 import React from "react";
 import Clock from 'react-live-clock';
