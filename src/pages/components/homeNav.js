@@ -1,10 +1,27 @@
 import Link from 'next/link'
-import Script from 'next/script'
+import React, { useState, useEffect } from 'react';
+
+function LinkWithOnClick(url, name) {
+    const [checked, setChecked] = useState(false);
+
+    const linkhandler = () => {
+        document.getElementById("nav-check1").checked = false;
+    }
+
+    useEffect(() => {
+        console.log(document.getElementById("nav-check1").checked);
+    }, [checked]);
+
+
+    return (
+        <Link className="nav-item ni2" href={url}
+            onClick={linkhandler}>{name}</Link>
+    );
+}
 
 export default function HomeNav() {
     return <div id="header-container">
         <link rel="stylesheet" href="/static/css/nav.css" />
-        <Script src="/static/js/script.js"></Script>
         <header role="navigation">
             <h2>Barusu</h2>
             <nav id="nav-menu">
@@ -13,10 +30,10 @@ export default function HomeNav() {
                 <span></span>
                 <span></span>
                 <ul id="nav-links">
-                    <li><Link className="nav-item ni1" href="#home">Home</Link></li>
-                    <li><Link className="nav-item ni1" href="#aboutme">About Me</Link></li>
-                    <li><Link className="nav-item ni1" href="#mywishlist">My Wishlist</Link></li>
-                    <li><Link className="nav-item ni1" href="#mypokemon">My Pokemon</Link></li>
+                    <li>{LinkWithOnClick("#home", "Home")}</li>
+                    <li>{LinkWithOnClick("#aboutme", "About Me")}</li>
+                    <li>{LinkWithOnClick("#mywishlist", "My Wishlist")}</li>
+                    <li>{LinkWithOnClick("#mypokemon", "My Pokemon")}</li>
                 </ul>
             </nav>
         </header>

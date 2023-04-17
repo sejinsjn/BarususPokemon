@@ -61,8 +61,6 @@ function Card(sheet, sheetnames) {
     const listEvents = sheetnames.map((sheetname, index) => {
         if (!sheetname.includes("Template")) {
             if (!sheetname.includes("Yahallo")) {
-
-                console.log(sheetname + " " + sheetnames[index + 1]);
                 return <div className="event-card" key={id++}>
                     <Link className="card-body" href={{
                         pathname: `/sheet/[sheet]/[sheetname]`,
