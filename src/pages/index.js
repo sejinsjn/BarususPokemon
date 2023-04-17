@@ -15,13 +15,10 @@ export default function Home() {
                             Pokemon Collection</span>
                     </h2>
                     <p>
-                        You will find my whole Pokemon Collection here but also <br />
-                        stuff about me like my wishlist.
+                        You can find all my Pokemon here <br />
+                        but also information about me and my wishlist.
                     </p>
-                    <Link className="btn" href="/sheet/fortrade">Straight to my ForTrade</Link>
-                </div>
-                <div className="i-frame">
-                    Picture
+                    <Link className="btn" href="#mypokemon">Straight to my Pokemon</Link>
                 </div>
             </div>
         </section>
@@ -66,6 +63,11 @@ export default function Home() {
                 <div className="wishlist-header">
                     <h2>Wishlist</h2>
                 </div>
+                <div className="wishlist-desc">
+                    The Pokemon under this are on my wishlist. Im looking only for them with at least
+                    AB proof and if possible not save-managaed but I wouldnt mind it a lot if it were save-managed.
+
+                </div>
                 <div className="wishlist-body">
                     <div className="wishlist-card">
                         <p>JPN Pokemon Center Bday Eevee / Pikachu</p>
@@ -99,8 +101,8 @@ export default function Home() {
                             <Link className="" href="/sheet/fortrade">For Trade</Link>
                         </div>
                         <div className="pokemon-description">
-                            <p>You will find all my Pokemon here that are actively for trade
-                                such as Shiny Eggs, Mythicals and Gen8-Events.</p>
+                            <p>Pokemon that are actively for trade like Events,
+                                Shiny Mythicals and Shiny Eggs</p>
                         </div>
                     </div>
                     <div className="pokemon-card">
@@ -108,8 +110,7 @@ export default function Home() {
                             <Link className="" href="/sheet/gen8events">Gen 8 Events</Link>
                         </div>
                         <div className="pokemon-description">
-                            <p>Here are all my Events that I farmed in Gen8. I have multiple of
-                                most of these.</p>
+                            <p>Events that I farmed during Gen8. Most are from other redeemers.</p>
                         </div>
                     </div>
                     <div className="pokemon-card">
@@ -117,8 +118,8 @@ export default function Home() {
                             <Link className="" href="/sheet/gen9events">Gen 9 Events</Link>
                         </div>
                         <div className="pokemon-description">
-                            <p>Here are my Events that are farmed in Gen9. This will be updated
-                                with new distributions.</p>
+                            <p>Events that I will farm during Gen9. This will be updated accordingly.
+                                Still waiting for HOME combatibility :|</p>
                         </div>
                     </div>
                     <div className="pokemon-card">
@@ -126,8 +127,8 @@ export default function Home() {
                             <Link className="" href="/sheet/mycollection">My Collection</Link>
                         </div>
                         <div className="pokemon-description">
-                            <p>You will find my private Collection here. This stuff will most likely
-                                stay NFT. Ill move some stuff to the FT when I get a better replacement.</p>
+                            <p>This is my personal Collection which contains my shiny living dex (working on it)
+                            but also events from Gen3 to Gen9. </p>
                         </div>
                     </div>
                 </div>

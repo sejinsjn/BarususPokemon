@@ -290,8 +290,8 @@ body {
     height: 100%;
 }
 
-.intro-text, .i-frame, .aboutme-header, .aboutme-body, .wishlist-header, .wishlist-body {
-    margin: auto;
+.intro-text, .i-frame, .aboutme-header, .aboutme-body, .wishlist-header, .wishlist-body, .pokemon-header {
+    margin: 100px auto;
 }
 
 .intro-text h2, .aboutme-header h2, .wishlist-header h2, .pokemon-header h2 {
@@ -334,10 +334,10 @@ body {
     background: var(--nav-item-hover-color);
 }
 
-.aboutme, .wishlist{
+.aboutme, .wishlist, .pokemon {
     margin: 100px 0;
     width: 100%;
-    height: 400px;
+    height: 90vh;
 }
 
 .aboutme .container, .wishlist .container {
@@ -346,11 +346,16 @@ body {
     justify-content: space-between;
     gap: 1.9rem;
     margin: auto;
-    max-width: 80%;
-    height: 100%;
+    max-width: 65%;
+    height: 90%;
 }
 
-.aboutme-body, .wishlist-body {
+.wishlist-desc {
+    margin: auto;
+    text-align: center;
+}
+
+.aboutme-body, .wishlist-body, .pokemon-body {
     display: flex;
     align-items: center;
     gap: 1.9rem;
@@ -358,6 +363,7 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     color: var(--main-color);
+    height: 80%;
 }
 
 .aboutme-card, .wishlist-card {
@@ -390,12 +396,15 @@ body {
         width: 100%;
         height: auto;
     }
-}
 
-.pokemon {
-    margin: 100px 0;
-    width: 100%;
-    height: 400px;
+   .container{
+       max-width: 80% !important;
+   }
+
+    .aboutme-header, .wishlist-header, .pokemon-header {
+        margin: 25px auto;
+        margin-top: 100px;
+    }
 }
 
 .pokemon-container {
@@ -408,23 +417,8 @@ body {
     height: 100%;
 }
 
-.pokemon-header {
-    height: 50%;
-    display: flex;
-    justify-content: center;
-    font-size: 3rem;
-    margin-bottom: 1rem;
-}
-
 .pokemon-header h2{
     margin: auto;
-}
-
-.pokemon-body{
-    height: 50%;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
 }
 
 .pokemon-card{
@@ -439,7 +433,7 @@ body {
 .pokemon-link, .pokemon-description {
     text-align: center;
     height: 50%;
-    display: flex;
+    color: white;
 }
 
 .pokemon-description p{
