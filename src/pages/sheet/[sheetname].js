@@ -42,8 +42,6 @@ export async function getServerSideProps({ query }) {
         spreadsheetId
     });
 
-    const sheets = spreadsheet.data.sheets;
-
     const sheetnames = spreadsheet.data.sheets.map((sheet) => {
         return sheet.properties.title
     });

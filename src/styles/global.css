@@ -132,7 +132,7 @@ body {
     border-collapse: collapse;
     border-spacing: 0;
     border-radius: 16px;
-    margin: 20px auto;
+    margin: 0 auto;
     width: 90%;
 }
 
@@ -163,6 +163,14 @@ body {
 
 @media only screen and (max-device-width: 680px) {
 
+    .table-nav {
+        display: flex;
+        justify-content: center;
+        margin: auto;
+        height: 70px;
+        width: 100%;
+    }
+
     /* Force table to not be like tables anymore */
     table, thead, tbody, th, td, tr {
         display: block;
@@ -179,8 +187,10 @@ body {
         /* Behave  like a "row" */
         border: none;
         position: relative;
-        padding: 5px;
+        padding: 10px;
         padding-left: 50%;
+        display: flex;
+        align-items: center;
     }
 
     td:empty {
@@ -360,7 +370,6 @@ body {
 .aboutme-card div, .wishlist-card p{
     padding: 16px;
     height: 100px;
-    width: 300px;
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -376,7 +385,7 @@ body {
 }
 
 @media screen and (max-width: 1000px) {
-        .aboutme, .wishlist {
+   .aboutme, .wishlist {
         margin-top: 100px;
         width: 100%;
         height: auto;

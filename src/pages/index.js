@@ -41,7 +41,7 @@ export default function Home() {
                         <div>
                             <h4>My current time</h4>
                             <p><Clock
-                                format={'HH:mm'}
+                                format={'HH:mm:ss'}
                                 ticking={true}
                                 timezone={'Europe/Berlin'} /></p>
                         </div>
