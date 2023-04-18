@@ -39,12 +39,11 @@ export async function getServerSideProps({ query }) {
     }
 
     const spreadsheet = await googlesheets.spreadsheets.get({
-        spreadsheetId
+        spreadsheetId,
+        fields: 'sheets.properties.title'
     });
 
-    const sheetnames = spreadsheet.data.sheets.map((sheet) => {
-        return sheet.properties.title
-    });
+    const sheetnames = spreadsheet.data.sheets.map((sheet) => sheet.properties.title);
 
     return {
         props: {

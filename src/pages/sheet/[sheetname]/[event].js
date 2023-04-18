@@ -5,6 +5,8 @@ import Image from 'next/image'
 
 export async function getServerSideProps({ query }) {
 
+    let start = Date.now();
+
     const credential = JSON.parse(
         Buffer.from(process.env.GOOGLE_SERVICE_KEY, "base64").toString().replace(/\n/g, "")
     );
@@ -53,6 +55,9 @@ export async function getServerSideProps({ query }) {
     });
 
     const sheetJson = sheet.data.values;
+
+    let timeTaken = Date.now() - start;
+    console.log("Total time taken : " + timeTaken + " milliseconds");
 
     return {
         props: {
@@ -222,6 +227,8 @@ function loadIMG(url, pokedexNr) {
             src={`${url}${pokedexNr}.png`}
             width={50}
             height={50}
+            unoptimized
+            alt={ pokedexNr }
         />
     );
 }

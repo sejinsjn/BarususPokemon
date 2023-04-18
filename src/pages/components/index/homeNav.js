@@ -8,11 +8,6 @@ function LinkWithOnClick(url, name) {
         document.getElementById("nav-check1").checked = false;
     }
 
-    useEffect(() => {
-        console.log(document.getElementById("nav-check1").checked);
-    }, [checked]);
-
-
     return (
         <Link className="nav-item ni2" href={url}
             onClick={linkhandler}>{name}</Link>
