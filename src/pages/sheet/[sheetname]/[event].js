@@ -56,11 +56,25 @@ export async function getServerSideProps({ query }) {
 
     const sheetJson = sheet.data.values;
 
-    let timeTaken = Date.now() - start;
-    console.log("Total time taken : " + timeTaken + " milliseconds");
+    const tablehead = {
+        farmed: ['Marking', 'Lang', 'Sprite', 'Ball', 'Ability', 'Nature', 'Lvl', 'Gender', 'IVs', 'OT/ID', 'Date', 'Proof', 'Trade History', 'Disclosure'],
+        fortrade: ['Marking', 'Lang', 'Event', 'Sprite', 'Ball', 'Ability', 'Nature', 'Lvl', 'Gender', 'IVs', 'OT/ID', 'Date', 'Proof', 'Trade History', 'Disclosure'],
+        mycollection: ['Lang', 'Event', 'Sprite', 'Ball', 'Ability', 'Nature', 'Lvl', 'Gender', 'IVs', 'OT/ID', 'Date', 'Proof', 'Trade History', 'Disclosure'],
+        default: ['Lang', 'Pokemon', 'Sprite', 'Ball', 'Ability', 'Nature', 'Lvl', 'Gender', 'IVs', 'OT/ID', 'Date', 'Proof', 'Trade History', 'Disclosure'],
+    };
+
+    const tablebody = {
+        farmed: [1, 2, [0, 4], 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
+        fortrade: [1, 2, 3, [0, 5], 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
+        mycollection: [1, 2, [0, 4], 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+        fortradeNE: [2, 3, [0, 5], 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
+        default: [1, 2, [0, 4], 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+    };
 
     return {
         props: {
+            tablehead,
+            tablebody,
             sheetJson,
             event,
             showEventName,
@@ -69,131 +83,55 @@ export async function getServerSideProps({ query }) {
     }
 }
 
-function JsonDataDisplayTbody(showEventName, sheetJson) {
-    var id = 4;
+function JsonDataDisplayTbody(showEventName, sheetJson, event, fields) {
+    let id = 4;
+    let fieldIndices = "";
+    switch (event) {
+        case 'Shiny Eggs':
+        case 'Shiny Mythicals':
+            fieldIndices = fields.fortradeNE;
+            break;
+        case 'Living Dex':
+            fieldIndices = fields.default;
+            break;
+        default:
+            fieldIndices = fields[showEventName] || fields.default;
+            break;
+    }
 
-    if (showEventName == "farmed")
-        return sheetJson.map(
-            (row) =>
-                <tr key={id++}>
-                    <td>{row[1]}</td>
-                    <td>{row[2]}</td>
-                    <td>{displaySprite(row[0], row[4])}</td>
-                    <td>{row[5]}</td>
-                    <td>{row[7]}</td>
-                    <td>{row[8]}</td>
-                    <td>{row[9]}</td>
-                    <td>{row[10]}</td>
-                    <td>{row[11]}</td>
-                    <td>{row[12]}</td>
-                    <td>{row[13]}</td>
-                    <td>{row[14]}</td>
-                    <td>{row[15]}</td>
-                    <td>{row[16]}</td>
-                    <td>{row[17]}</td>
-                </tr >
-        )
-    else
-        if (showEventName == "fortrade")
-            return sheetJson.map(
-                (row) =>
-                    <tr key={id++}>
-                        <td>{row[1]}</td>
-                        <td>{row[2]}</td>
-                        <td>{displaySprite(row[0], row[5])}</td>
-                        <td>{row[3]}</td>
-                        <td>{row[6]}</td>
-                        <td>{row[8]}</td>
-                        <td>{row[9]}</td>
-                        <td>{row[10]}</td>
-                        <td>{row[11]}</td>
-                        <td>{row[12]}</td>
-                        <td>{row[13]}</td>
-                        <td>{row[14]}</td>
-                        <td>{row[15]}</td>
-                        <td>{row[16]}</td>
-                        <td>{row[17]}</td>
-                    </tr >
-            )
-        else
-            return sheetJson.map(
-                (row) =>
-                    <tr key={id++}>
-                        <td>{row[1]}</td>
-                        <td>{displaySprite(row[0], row[4])}</td>
-                        <td>{row[2]}</td>
-                        <td>{row[5]}</td>
-                        <td>{row[7]}</td>
-                        <td>{row[8]}</td>
-                        <td>{row[9]}</td>
-                        <td>{row[10]}</td>
-                        <td>{row[11]}</td>
-                        <td>{row[12]}</td>
-                        <td>{row[13]}</td>
-                        <td>{row[14]}</td>
-                        <td>{row[15]}</td>
-                        <td>{row[16]}</td>
-                    </tr >
-            )
-}
-
-function JsonDataDisplayThead(showEventName) {
-    var id = 4;
-
-    if (showEventName == "farmed")
-        return <tr>
-            <th scope="col">Marking</th>
-            <th scope="col">Lang</th>
-            <th scope="col">Sprite</th>
-            <th scope="col">Ball</th>
-            <th scope="col">Ability</th>
-            <th scope="col">Nature</th>
-            <th scope="col">Lvl</th>
-            <th scope="col">Gender</th>
-            <th scope="col">IVs</th>
-            <th scope="col">OT/ID</th>
-            <th scope="col">Date</th>
-            <th scope="col">Proof</th>
-            <th scope="col">Trade History</th>
-            <th scope="col">Disclosure</th>
+    return sheetJson.map((row) => (
+        <tr key={id++}>
+            {fieldIndices.map((field, index) => (
+                <td key={index}>{Array.isArray(field) ? displaySprite(row[field[0]], row[field[1]]) : row[field]}</td>
+            ))}
         </tr>
-    else
-        if (showEventName == "fortrade")
-            return <tr>
-                <th scope="col">Marking</th>
-                <th scope="col">Lang</th>
-                <th scope="col">Sprite</th>
-                <th scope="col">Event</th>
-                <th scope="col">Ball</th>
-                <th scope="col">Ability</th>
-                <th scope="col">Nature</th>
-                <th scope="col">Lvl</th>
-                <th scope="col">Gender</th>
-                <th scope="col">IVs</th>
-                <th scope="col">OT/ID</th>
-                <th scope="col">Date</th>
-                <th scope="col">Proof</th>
-                <th scope="col">Trade History</th>
-                <th scope="col">Disclosure</th>
-            </tr>
-        else
-            return <tr>
-                <th scope="col">Lang</th>
-                <th scope="col">Sprite</th>
-                <th scope="col">Event</th>
-                <th scope="col">Ball</th>
-                <th scope="col">Ability</th>
-                <th scope="col">Nature</th>
-                <th scope="col">Lvl</th>
-                <th scope="col">Gender</th>
-                <th scope="col">IVs</th>
-                <th scope="col">OT/ID</th>
-                <th scope="col">Date</th>
-                <th scope="col">Proof</th>
-                <th scope="col">Trade History</th>
-                <th scope="col">Disclosure</th>
-            </tr>
+    ));
 }
+
+function JsonDataDisplayThead(showEventName, event, fields) {
+    let fieldNames = "";
+    switch (event) {
+        case 'Shiny Eggs':
+        case 'Shiny Mythicals':
+        case 'Living Dex':
+            fieldNames = fields.default;
+            break;
+        default:
+            fieldNames = fields[showEventName] || fields.default;
+            break;
+    }
+
+    return (
+        <tr>
+            {fieldNames.map((fieldName) => (
+                <th key={fieldName} scope="col">
+                    {fieldName}
+                </th>
+            ))}
+        </tr>
+    );
+}
+
 
 function displaySprite(pokedexNr, isShiny) {
     if (pokedexNr === undefined || pokedexNr === "") return <p></p>;
@@ -228,12 +166,12 @@ function loadIMG(url, pokedexNr) {
             width={50}
             height={50}
             unoptimized
-            alt={ pokedexNr }
+            alt={pokedexNr}
         />
     );
 }
 
-export default function Post({ showEventName, event, sheetJson, sheetname }) {
+export default function Post({ showEventName, event, sheetJson, tablebody, tablehead }) {
     return <div>
         <Nav />
         <div className="table-nav">
@@ -242,10 +180,10 @@ export default function Post({ showEventName, event, sheetJson, sheetname }) {
         <div className="event-table-container">
             <table className="event-table">
                 <thead>
-                    {JsonDataDisplayThead(showEventName)}
+                    {JsonDataDisplayThead(showEventName, event, tablehead)}
                 </thead>
                 <tbody>
-                    {JsonDataDisplayTbody(showEventName, sheetJson)}
+                    {JsonDataDisplayTbody(showEventName, sheetJson, event, tablebody)}
                 </tbody>
             </table>
         </div>
