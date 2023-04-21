@@ -1,9 +1,9 @@
 import React from "react";
-import HomeNav from "./components/index/homeNav";
-import Intro from "./components/index/intro";
-import About from "./components/index/about";
-import Wishlist from "./components/index/wishlist";
-import Pokemon from "./components/index/pokemon";
+import HomeNav from "/components/index/homeNav";
+import Intro from "/components/index/intro";
+import About from "/components/index/about";
+import Wishlist from "/components/index/wishlist";
+import Pokemon from "/components/index/pokemon";
 
 export default function Home() {
     const cards = [
