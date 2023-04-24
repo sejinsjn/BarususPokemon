@@ -185,7 +185,8 @@ function dropdownEvents(sheetnames, sheetname, event) {
         <div className="event-dropdown">
             <span>{event} <i class="fa-solid fa-chevron-down"></i></span>
             <div className="event-dropdown-content">
-                {sheetnames.map((sheet) => (
+                {sheetnames.filter((sheet) => !sheet?.includes("Template") && !sheet?.includes("Yahallo"))
+                .map((sheet) => (
                     <span key={sheet} className="event-dropdown-link">
                         <Link
                             key={sheet}
