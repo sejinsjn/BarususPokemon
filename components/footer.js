@@ -7,28 +7,28 @@ export default function Pokemon() {
 			<div className="footer-links">
 				<ul>
 					<li>
-						<a href="https://reddit.com/u/sejin_mb" className="footer-link">
+						<Link href="https://reddit.com/u/sejin_mb" className="footer-link">
 							<i className="fab fa-reddit"></i>
 							reddit
-						</a>
+						</Link>
 					</li>
 					<li>
-						<a href="https://twitter.com/sejin_sjn" className="footer-link">
+						<Link href="https://twitter.com/sejin_sjn" className="footer-link">
 							<i className="fab fa-twitter"></i>
 							twitter
-						</a>
+						</Link>
 					</li>
 					<li>
-						<a href="https://github.com/sejinsjn" className="footer-link">
+						<Link href="https://github.com/sejinsjn" className="footer-link">
 							<i className="fab fa-github"></i>
 							github
-						</a>
+						</Link>
 					</li>
 					<li>
-						<a href="https://hq.porygon.co/u/sejin_mb" className="footer-link">
+						<Link href="https://hq.porygon.co/u/sejin_mb" className="footer-link">
 							<i class="fa-solid fa-f"></i>
 							flairHQ
-						</a>
+						</Link>
 					</li>
 				</ul>
 			</div>

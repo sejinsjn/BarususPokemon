@@ -1,7 +1,8 @@
 import Nav from "../../nav";
 import { google } from 'googleapis';
-import Link from 'next/link'
+import Footer from "/components/footer";
 import Image from 'next/image'
+import Link from 'next/link'
 
 export async function getServerSideProps({ query }) {
 
@@ -56,6 +57,13 @@ export async function getServerSideProps({ query }) {
 
     const sheetJson = sheet.data.values;
 
+    const spreadsheet = await googlesheets.spreadsheets.get({
+        spreadsheetId,
+        fields: "sheets.properties.title",
+    });
+
+    const sheetnames = spreadsheet?.data?.sheets?.map((sheet) => sheet?.properties?.title) || [];
+
     const tablehead = {
         farmed: ['Marking', 'Lang', 'Sprite', 'Ball', 'Ability', 'Nature', 'Lvl', 'Gender', 'IVs', 'OT/ID', 'Date', 'Proof', 'Trade History', 'Disclosure'],
         fortrade: ['Marking', 'Lang', 'Event', 'Sprite', 'Ball', 'Ability', 'Nature', 'Lvl', 'Gender', 'IVs', 'OT/ID', 'Date', 'Proof', 'Trade History', 'Disclosure'],
@@ -78,7 +86,8 @@ export async function getServerSideProps({ query }) {
             sheetJson,
             event,
             showEventName,
-            sheetname
+            sheetname,
+            sheetnames
         }
     }
 }
@@ -171,21 +180,48 @@ function loadIMG(url, pokedexNr) {
     );
 }
 
-export default function Post({ showEventName, event, sheetJson, tablebody, tablehead }) {
-    return <div>
-        <Nav />
-        <div className="table-nav">
-            <h3 className="event-name">{event}</h3>
+function dropdownEvents(sheetnames, sheetname, event) {
+    return (
+        <div className="event-dropdown">
+            <span>{event} <i class="fa-solid fa-chevron-down"></i></span>
+            <div className="event-dropdown-content">
+                {sheetnames.map((sheet) => (
+                    <span className="event-dropdown-link">
+                        <Link
+                            key={sheet}
+                            href={{ pathname: `/sheet/[sheetname]/[sheet]`, query: { sheetname, sheet } }}
+                            as={`/sheet/${sheetname}/${sheet}`}
+                        >
+                            {sheet}
+                        </Link>
+                    </span>
+                ))}
+            </div>
         </div>
-        <div className="event-table-container">
-            <table className="event-table">
-                <thead>
-                    {JsonDataDisplayThead(showEventName, event, tablehead)}
-                </thead>
-                <tbody>
-                    {JsonDataDisplayTbody(showEventName, sheetJson, event, tablebody)}
-                </tbody>
-            </table>
+    );
+}
+
+export default function Post({ sheetnames, sheetname, showEventName, event, sheetJson, tablebody, tablehead }) {
+    return (
+        <div className="nextjs">
+            <link rel="stylesheet" href="/static/css/index.css" />
+            <Nav />
+            <main>
+                <div className="table-nav">
+                    <h3 className="event-name">{dropdownEvents(sheetnames, sheetname, event)}</h3>
+                </div>
+                <div className="event-table-container">
+                    <table className="event-table">
+                        <thead>
+                            {JsonDataDisplayThead(showEventName, event, tablehead)}
+                        </thead>
+                        <tbody>
+                            {JsonDataDisplayTbody(showEventName, sheetJson, event, tablebody)}
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+            <Footer />
         </div>
-    </div>
+    );
 }

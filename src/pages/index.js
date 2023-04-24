@@ -1,11 +1,10 @@
 import React from "react";
-import Script from "next/script";
 import HomeNav from "/components/index/homeNav";
 import Intro from "/components/index/intro";
 import About from "/components/index/about";
 import Wishlist from "/components/index/wishlist";
 import Pokemon from "/components/index/pokemon";
-import Footer from "/components/index/footer";
+import Footer from "/components/footer";
 
 export default function Home() {
     const cards = [
@@ -42,16 +41,16 @@ export default function Home() {
     ];
 
     return (
-        <main>
+        <div className="nextjs">
             <link rel="stylesheet" href="/static/css/index.css" />
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-            <Script src="https://kit.fontawesome.com/90776f91b0.js" crossorigin="anonymous"/>
             <HomeNav />
-            <Intro />
-            <About cards={cards} />
-            <Wishlist items={items} />
-            <Pokemon />
+            <main>
+                <Intro />
+                <About cards={cards} />
+                <Wishlist items={items} />
+                <Pokemon />
+            </main>
             <Footer />
-        </main>
+        </div>
     )
 }; 

@@ -1,4 +1,5 @@
 import Nav from "../nav";
+import Footer from "/components/footer";
 import { google } from 'googleapis';
 import Link from 'next/link'
 
@@ -78,9 +79,13 @@ function Card({ sheetname, sheetnames }) {
 
 export default function Post(props) {
     return (
-        <div>
+        <div className="nextjs">
+            <link rel="stylesheet" href="/static/css/index.css" />
             <Nav />
-            <Card {...props} />
+            <main>
+                <Card {...props} />
+            </main>
+            <Footer />
         </div>
     );
 }

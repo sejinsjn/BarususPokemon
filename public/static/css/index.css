@@ -202,52 +202,6 @@
         background: var(--nav-item-hover-color);
     }
 
-.footer {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    height: 20vh;
-    box-shadow: 0px -3px 3px 0px #f1f1f1;
-}
-
-    .footer p {
-        height: 30%;
-        display: flex;
-        align-items: center;
-    }
-
-.footer-links {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    min-height: 70%;
-    justify-content: center;
-}
-
-    .footer-links ul {
-        list-style-type: none;
-        display: flex;
-        align-content: center;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-
-    .footer-link{
-        text-decoration: none;
-        margin: 0 10px;
-        color: white;
-    }
-
-        .footer-link i {
-            margin-right: 5px;
-        }
-
-
-
 @media only screen and (max-device-width: 1300px) {
     .parallelogram {
         width: 50%;
