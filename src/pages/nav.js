@@ -1,9 +1,6 @@
 import Link from 'next/link'
-import React, { useState, useEffect } from 'react';
 
 function LinkWithOnClick(url, name) {
-    const [checked, setChecked] = useState(false);
-
     const linkhandler = () => {
         document.getElementById("nav-check2").checked = false;
     }
