@@ -2,6 +2,30 @@ import Nav from "../nav";
 import Footer from "/components/footer";
 import { google } from 'googleapis';
 import Link from 'next/link'
+import Header from "/components/Header";
+
+const navItems = [
+    {
+        url: '/',
+        label: 'Home'
+    },
+    {
+        url: '/sheet/fortrade',
+        label: 'For Trade'
+    },
+    {
+        url: '/sheet/gen8events',
+        label: 'Gen 8'
+    },
+    {
+        url: '/sheet/gen9events',
+        label: 'Gen 9'
+    },
+    {
+        url: '/sheet/mycollection',
+        label: 'My Collection'
+    }
+];
 
 export async function getServerSideProps({ query }) {
     try {
@@ -16,6 +40,8 @@ export async function getServerSideProps({ query }) {
 
         const { sheetname } = query;
         let spreadsheetId = "";
+
+        console.log(sheetname)
 
         switch (sheetname) {
             case "fortrade":
@@ -81,7 +107,7 @@ export default function Post(props) {
     return (
         <div className="nextjs">
             <link rel="stylesheet" href="/static/css/index.css" />
-            <Nav />
+            <Header navItems={navItems} />
             <main>
                 <Card {...props} />
             </main>

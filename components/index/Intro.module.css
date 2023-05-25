@@ -1,0 +1,128 @@
+.intro {
+    background-color: #005b66;
+    width: 100%;
+    height: 80vh;
+}
+
+.intro-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.9rem;
+    margin: auto;
+    height: 100%;
+}
+
+.intro-text {
+    margin-left: auto;
+    display: flex;
+    gap: 0.2rem;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+    .intro-text h2, .aboutme-header h2, .wishlist-header h2, .pokemon-header h2 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    .intro-text .btn {
+        text-decoration: none;
+        color: var(--primary-color);
+        font-weight: var(--bold-font);
+        background-color: #047a89;
+        border: none;
+        color: white;
+        padding: 16px;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 16px;
+    }
+
+        .intro-text .btn:hover {
+            color: var(--nav-item-hover-color);
+        }
+
+    .intro-text > .btn::after {
+        content: "";
+        display: block;
+        margin: auto;
+        height: 3px;
+        width: 0;
+        top: 5px;
+        background: transparent;
+        transition: all 0.3s;
+    }
+
+    .intro-text > .btn:hover::after, .intro-text > .btn.active-nav::after {
+        width: 100%;
+        background: var(--nav-item-hover-color);
+    }
+
+.parallelogram {
+    width: 60%;
+    height: 100%;
+    background-image: url('/barusu.jpg');
+    background-size: cover;
+    background-position: center;
+    clip-path: polygon(40% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+@media only screen and (max-device-width: 1300px) {
+    .parallelogram {
+        width: 50%;
+        clip-path: polygon(30% 0, 100% 0, 100% 100%, 0 100%);
+    }
+}
+
+@media only screen and (max-device-width: 950px) {
+
+    .intro-container {
+        flex-direction: column;
+    }
+
+    .intro-text {
+        margin: auto;
+    }
+
+        .intro-text h2 {
+            font-size: 2.5rem;
+        }
+
+        .intro-text .btn, .intro-text p {
+            font-size: 14px;
+            padding: 14px;
+        }
+
+    .parallelogram {
+        height: 60%;
+        width: 100%;
+        clip-path: polygon(0% 0, 100% 0, 100% 100%, 0 100%);
+    }
+}
+
+@media only screen and (max-device-width: 600px) {
+
+    .intro-text h2 {
+        font-size: 2rem;
+    }
+
+    .intro-text .btn, .intro-text p {
+        font-size: 12px;
+        padding: 12px;
+    }
+}
+
+@media only screen and (max-device-width: 400px) {
+
+    .intro-text h2 {
+        font-size: 1.5rem;
+    }
+
+    .intro-text .btn, .intro-text p {
+        font-size: 10px;
+        padding: 10px;
+    }
+}

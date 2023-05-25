@@ -4,6 +4,9 @@
     --main-color: #001f3f;
     --nav-item-hover-color: #ff851b;
     --bold-font: 600;
+    --header-background: #001f3f;
+    --hamburger: #ff851b;
+    font-size: 16px;
 }    
     
 * {

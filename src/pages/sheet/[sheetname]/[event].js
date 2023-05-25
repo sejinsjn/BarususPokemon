@@ -3,11 +3,32 @@ import { google } from 'googleapis';
 import Footer from "/components/footer";
 import Image from 'next/image'
 import Link from 'next/link'
+import Header from "/components/Header";
+
+const navItems = [
+    {
+        url: '/',
+        label: 'Home'
+    },
+    {
+        url: '/sheet/fortrade',
+        label: 'For Trade'
+    },
+    {
+        url: '/sheet/gen8events',
+        label: 'Gen 8'
+    },
+    {
+        url: '/sheet/gen9events',
+        label: 'Gen 9'
+    },
+    {
+        url: '/sheet/mycollection',
+        label: 'My Collection'
+    }
+];
 
 export async function getServerSideProps({ query }) {
-
-    let start = Date.now();
-
     const credential = JSON.parse(
         Buffer.from(process.env.GOOGLE_SERVICE_KEY, "base64").toString().replace(/\n/g, "")
     );
@@ -141,6 +162,29 @@ function JsonDataDisplayThead(showEventName, event, fields) {
     );
 }
 
+function DisplayTableOnDesktop(showEventName, sheetJson, event, tablehead, tablebody) {
+    
+    return (<table className="event-table">
+        <thead>
+            {JsonDataDisplayThead(showEventName, event, tablehead)}
+        </thead>
+        <tbody>
+            {JsonDataDisplayTbody(showEventName, sheetJson, event, tablebody)}
+        </tbody>
+    </table>);
+}
+
+function DisplayTableOnMobile(showEventName, sheetJson, event, tablehead, tablebody) {
+    console.log("mobile");
+    return (<table className="event-table">
+        <thead>
+            {JsonDataDisplayThead(showEventName, event, tablehead)}
+        </thead>
+        <tbody>
+            {JsonDataDisplayTbody(showEventName, sheetJson, event, tablebody)}
+        </tbody>
+    </table>);
+}
 
 function displaySprite(pokedexNr, isShiny) {
     if (pokedexNr === undefined || pokedexNr === "") return <p></p>;
@@ -206,20 +250,13 @@ export default function Post({ sheetnames, sheetname, showEventName, event, shee
     return (
         <div className="nextjs">
             <link rel="stylesheet" href="/static/css/index.css" />
-            <Nav />
+            <Header navItems={navItems} />
             <main>
                 <div className="table-nav">
                     <h3 className="event-name">{dropdownEvents(sheetnames, sheetname, event)}</h3>
                 </div>
                 <div className="event-table-container">
-                    <table className="event-table">
-                        <thead>
-                            {JsonDataDisplayThead(showEventName, event, tablehead)}
-                        </thead>
-                        <tbody>
-                            {JsonDataDisplayTbody(showEventName, sheetJson, event, tablebody)}
-                        </tbody>
-                    </table>
+                    {DisplayTableOnDesktop(showEventName, sheetJson, event, tablehead, tablebody)}
                 </div>
             </main>
             <Footer />
