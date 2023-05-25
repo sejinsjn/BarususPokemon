@@ -1,6 +1,5 @@
-import Nav from "../../nav";
 import { google } from 'googleapis';
-import Footer from "/components/footer";
+import Footer from "/components/Footer";
 import Image from 'next/image'
 import Link from 'next/link'
 import Header from "/components/Header";

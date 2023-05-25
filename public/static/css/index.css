@@ -14,10 +14,6 @@
     color: black;
 }
 
-.aboutme-header,  .wishlist-header, .pokemon-header {
-    margin: 100px auto 50px auto;
-}
-
 .wishlist-desc {
     margin: auto;
     text-align: center;
