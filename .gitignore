@@ -36,3 +36,4 @@ secret.json
 
 .vs
 /secrets.json
+/.env
