@@ -3,8 +3,6 @@ import React, { useState, useEffect } from 'react';
 import styles from './Header.module.css';
 
 function LinkWithOnClick(url, name) {
-    const [checked, setChecked] = useState(false);
-
     const linkhandler = () => {
         document.getElementById("nav-check1").checked = false;
     }

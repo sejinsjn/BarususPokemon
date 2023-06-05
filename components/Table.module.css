@@ -1,0 +1,154 @@
+.tableDesktop {
+    background-color: #EEC550;
+    color: black;
+    margin: auto;
+    border-radius: 16px;
+}
+
+    .tableDesktop td, .tableDesktop th {
+        border-radius: 16px;
+    }
+
+    .tableDesktop tr:nth-child(odd) {
+        background-color: #F9E3A3;
+        border: 1px solid #EEC550;
+    }
+
+    .tableDesktop tr:nth-child(even) td {
+        background-color: #EEC550;
+        border: 1px solid #F9E3A3;
+    }
+
+.event {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.eventname {
+    min-width: 100px;
+    max-width: 200px;
+    text-align: center;
+    padding: 10px;
+}
+
+.sprite {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 0.75rem;
+}
+
+    .sprite div {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+        .sprite div img {
+            margin: auto;
+            display: block;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+.characteristics {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+}
+
+.r3 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.75rem;
+    text-align: center;
+}
+
+    .characteristics div {
+        display: flex;
+        flex-direction: column;
+        width: 100px;
+    }
+
+.ivs{
+    font-size: 0.75rem;
+    text-align: center;
+}
+
+.tradehistory, .disclosure {
+    width: 250px;
+    text-align: center;
+}
+
+.lang {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100px;
+    padding: 3px;
+}
+
+@media only screen and (max-device-width: 700px) {
+
+    .tableMobile {
+        width: 80vw;
+    }
+}
+
+@media only screen and (max-device-width: 1000px) {
+    .tableMobile {
+        color: black;
+        margin: auto;
+        border-radius: 16px;
+    }
+
+        .tableMobile td, .tableMobile th {
+            border-radius: 16px;
+        }
+
+        .tableMobile tr:nth-child(8n+1) {
+            background-color: #F9E3A3;
+        }
+
+        .tableMobile tr:nth-child(8n+5) td {
+            background-color: #EEC550;
+        }
+
+        .tableMobile td {
+            width: inherit;
+        }
+
+    .charR3Mobile {
+        display: flex;
+        flex-flow: row;
+        justify-content: space-around;
+    }
+
+    .tradehistory, .disclosure {
+        margin: auto;
+    }
+
+    .oddShow {
+        display: block;
+        background-color: #F9E3A3;
+        border-radius: 16px;
+        border: 1px solid #EEC550;
+    }
+
+    .show {
+        display: block;
+        background-color: #EEC550;
+        border: 1px solid #F9E3A3;
+        border-radius: 16px;
+    }
+
+    .hidden {
+        display: none;
+    }
+}

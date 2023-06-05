@@ -1,8 +1,9 @@
 import { google } from 'googleapis';
 import Footer from "/components/Footer";
-import Image from 'next/image'
 import Link from 'next/link'
 import Header from "/components/Header";
+import Table from "/components/Table";
+import React, { useState, useEffect } from 'react';
 
 const navItems = [
     {
@@ -46,24 +47,24 @@ export async function getServerSideProps({ query }) {
     const { sheetname } = query;
 
     var spreadsheetId = "";
-    var showEventName = false;
+    var showSheet = "";
 
     switch (sheetname) {
         case "fortrade":
             spreadsheetId = process.env.SHEET_FORTRADE;
-            showEventName = "fortrade";
+            showSheet = "fortrade";
             break;
         case "gen8events":
             spreadsheetId = process.env.SHEET_GEN8;
-            showEventName = "farmed";
+            showSheet = "farmed";
             break;
         case "gen9events":
             spreadsheetId = process.env.SHEET_GEN9;
-            showEventName = "farmed";
+            showSheet = "farmed";
             break;
         case "mycollection":
             spreadsheetId = process.env.SHEET_MYCOLLECTION;
-            showEventName = "mycollection";
+            showSheet = "mycollection";
             break;
         default:
             spreadsheetId = process.env.SHEET_FORTRADE;
@@ -84,149 +85,30 @@ export async function getServerSideProps({ query }) {
 
     const sheetnames = spreadsheet?.data?.sheets?.map((sheet) => sheet?.properties?.title) || [];
 
-    const tablehead = {
-        farmed: ['Marking', 'Lang', 'Sprite', 'Ball', 'Ability', 'Nature', 'Lvl', 'Gender', 'IVs', 'OT/ID', 'Date', 'Proof', 'Trade History', 'Disclosure'],
-        fortrade: ['Marking', 'Lang', 'Event', 'Sprite', 'Ball', 'Ability', 'Nature', 'Lvl', 'Gender', 'IVs', 'OT/ID', 'Date', 'Proof', 'Trade History', 'Disclosure'],
-        mycollection: ['Lang', 'Event', 'Sprite', 'Ball', 'Ability', 'Nature', 'Lvl', 'Gender', 'IVs', 'OT/ID', 'Date', 'Proof', 'Trade History', 'Disclosure'],
-        default: ['Lang', 'Pokemon', 'Sprite', 'Ball', 'Ability', 'Nature', 'Lvl', 'Gender', 'IVs', 'OT/ID', 'Date', 'Proof', 'Trade History', 'Disclosure'],
-    };
+    const tablehead = ['Pokemon', 'Characteristics', 'Other Info', 'Trade History', 'Disclosure'];
 
-    const tablebody = {
-        farmed: [1, 2, [0, 4], 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
-        fortrade: [1, 2, 3, [0, 5], 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
-        mycollection: [1, 2, [0, 4], 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
-        fortradeNE: [2, 3, [0, 5], 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
-        default: [1, 2, [0, 4], 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
-    };
+    const fields = {
+        fortrade: [0, 5, 6, 2, 1, 3, 10, 9, 8, 11, 12, 13, 14, 15, 16, 17],
+        farmed: [0, 4, 5, 3, 2, 1, 9, 8, 7, 10, 11, 12, 13, 14, 15, 16],
+        mycollection: [0, 5, 6, 2, 1, 3, 10, 9, 8, 11, 12, 13, 14, 15, 16, 17],
+    }
 
     return {
         props: {
             tablehead,
-            tablebody,
+            sheet: fields[showSheet],
             sheetJson,
             event,
-            showEventName,
             sheetname,
             sheetnames
         }
     }
 }
 
-function JsonDataDisplayTbody(showEventName, sheetJson, event, fields) {
-    let id = 4;
-    let fieldIndices = "";
-    switch (event) {
-        case 'Shiny Eggs':
-        case 'Shiny Mythicals':
-            fieldIndices = fields.fortradeNE;
-            break;
-        case 'Living Dex':
-            fieldIndices = fields.default;
-            break;
-        default:
-            fieldIndices = fields[showEventName] || fields.default;
-            break;
-    }
-
-    return sheetJson.map((row) => (
-        <tr key={id++}>
-            {fieldIndices.map((field, index) => (
-                <td key={index}>{Array.isArray(field) ? displaySprite(row[field[0]], row[field[1]]) : row[field]}</td>
-            ))}
-        </tr>
-    ));
-}
-
-function JsonDataDisplayThead(showEventName, event, fields) {
-    let fieldNames = "";
-    switch (event) {
-        case 'Shiny Eggs':
-        case 'Shiny Mythicals':
-        case 'Living Dex':
-            fieldNames = fields.default;
-            break;
-        default:
-            fieldNames = fields[showEventName] || fields.default;
-            break;
-    }
-
-    return (
-        <tr>
-            {fieldNames.map((fieldName) => (
-                <th key={fieldName} scope="col">
-                    {fieldName}
-                </th>
-            ))}
-        </tr>
-    );
-}
-
-function DisplayTableOnDesktop(showEventName, sheetJson, event, tablehead, tablebody) {
-    
-    return (<table className="event-table">
-        <thead>
-            {JsonDataDisplayThead(showEventName, event, tablehead)}
-        </thead>
-        <tbody>
-            {JsonDataDisplayTbody(showEventName, sheetJson, event, tablebody)}
-        </tbody>
-    </table>);
-}
-
-function DisplayTableOnMobile(showEventName, sheetJson, event, tablehead, tablebody) {
-    console.log("mobile");
-    return (<table className="event-table">
-        <thead>
-            {JsonDataDisplayThead(showEventName, event, tablehead)}
-        </thead>
-        <tbody>
-            {JsonDataDisplayTbody(showEventName, sheetJson, event, tablebody)}
-        </tbody>
-    </table>);
-}
-
-function displaySprite(pokedexNr, isShiny) {
-    if (pokedexNr === undefined || pokedexNr === "") return <p></p>;
-
-    const swshShinyURL = "https://www.serebii.net/Shiny/SWSH/";
-    const swshNormalURL = "https://www.serebii.net/swordshield/pokemon/";
-    const svShinyURL = "https://www.serebii.net/Shiny/SV/new/";
-    const svNormalURL = "https://www.serebii.net/scarletviolet/pokemon/new/";
-
-    if (parseInt(pokedexNr) <= 905)
-        if (isShiny == "TRUE")
-            return loadIMG(swshShinyURL, pokedexNr);
-        else
-            return loadIMG(swshNormalURL, pokedexNr);
-    else
-        if (isShiny == "TRUE")
-            return loadIMG(svShinyURL, pokedexNr);
-        else
-            return loadIMG(svNormalURL, pokedexNr);
-}
-
-function loadIMG(url, pokedexNr) {
-    const loadSprite = ({ src }) => {
-        return `${url}${pokedexNr}.png`;
-    }
-
-    return (
-        <Image
-            loader={loadSprite}
-            className="tableSprite"
-            src={`${url}${pokedexNr}.png`}
-            width={50}
-            height={50}
-            unoptimized
-            alt={pokedexNr}
-        />
-    );
-}
-
 function dropdownEvents(sheetnames, sheetname, event) {
     return (
         <div className="event-dropdown">
-            <span>{event} <i class="fa-solid fa-chevron-down"></i></span>
+            <span>{event} <i className="fa-solid fa-chevron-down"></i></span>
             <div className="event-dropdown-content">
                 {sheetnames.filter((sheet) => !sheet?.includes("Template") && !sheet?.includes("Yahallo"))
                 .map((sheet) => (
@@ -245,7 +127,46 @@ function dropdownEvents(sheetnames, sheetname, event) {
     );
 }
 
-export default function Post({ sheetnames, sheetname, showEventName, event, sheetJson, tablebody, tablehead }) {
+function useWindowSize() {
+    // Initialize state with undefined width/height so server and client renders match
+    // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+    const [windowSize, setWindowSize] = useState({
+        width: undefined,
+        height: undefined,
+    });
+
+    useEffect(() => {
+        // only execute all the code below in client side
+        // Handler to call on window resize
+        function handleResize() {
+            // Set window width/height to state
+            setWindowSize({
+                width: window.innerWidth,
+                height: window.innerHeight,
+            });
+        }
+
+        // Add event listener
+        window.addEventListener("resize", handleResize);
+
+        // Call handler right away so state gets updated with initial window size
+        handleResize();
+
+        // Remove event listener on cleanup
+        return () => window.removeEventListener("resize", handleResize);
+    }, []); // Empty array ensures that effect is only run on mount
+    return windowSize;
+}
+
+export default function Post({ sheetnames, sheetname, event, sheetJson, tablehead, sheet }) {
+    const size = useWindowSize();
+    let device = "";
+    if (size.width < 1000) {
+        device = "mobile";
+    } else {
+        device = "desktop";
+    }
+
     return (
         <div className="nextjs">
             <link rel="stylesheet" href="/static/css/index.css" />
@@ -255,7 +176,8 @@ export default function Post({ sheetnames, sheetname, showEventName, event, shee
                     <h3 className="event-name">{dropdownEvents(sheetnames, sheetname, event)}</h3>
                 </div>
                 <div className="event-table-container">
-                    {DisplayTableOnDesktop(showEventName, sheetJson, event, tablehead, tablebody)}
+                    {console.log(sheet)}
+                    <Table head={tablehead} data={sheetJson} fields={sheet} device={device} />
                 </div>
             </main>
             <Footer />
