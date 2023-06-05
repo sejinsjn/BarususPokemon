@@ -99,6 +99,10 @@
     .tableMobile {
         width: 80vw;
     }
+
+        .tableMobile td {
+            width: 80vw;
+        }
 }
 
 @media only screen and (max-device-width: 1000px) {
@@ -106,6 +110,7 @@
         color: black;
         margin: auto;
         border-radius: 16px;
+        width: 60vw;
     }
 
         .tableMobile td, .tableMobile th {
@@ -121,7 +126,7 @@
         }
 
         .tableMobile td {
-            width: inherit;
+            width: 60vw;
         }
 
     .charR3Mobile {
