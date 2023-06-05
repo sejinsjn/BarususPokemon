@@ -97,11 +97,11 @@
 @media only screen and (max-device-width: 700px) {
 
     .tableMobile {
-        width: 80vw;
+        width: 80vw !important;
     }
 
         .tableMobile td {
-            width: 80vw;
+            width: 80vw !important;
         }
 }
 
