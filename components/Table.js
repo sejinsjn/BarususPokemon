@@ -2,7 +2,6 @@ import styles from './Table.module.css';
 import Image from 'next/image'
 import React, { useState } from 'react';
 import Sprite from '/components/Sprite';
-import ShinySprite from '/components/ShinySprite';
 
 export default function Table({ head, data, fields, device }) {
 
@@ -56,7 +55,7 @@ function TableBody(data, fields) {
                 <div className={styles.event }>
                     <div className={styles.sprite}>
                         <div>
-                            {ShowSprite(row[fields[0]], row[fields[1]],  75, 75) }
+                            <Sprite pokedexNr={row[fields[0]]} isShiny={row[fields[1]]} height={75} width={75} />
                             {displayBall(row[fields[2]], 40, 40)}
                         </div>
                         <div className={styles.lang }>
@@ -136,7 +135,7 @@ function TableMobile(data, fields) {
                         <div className={styles.event} >
                             <div className={styles.sprite}>
                                 <div>
-                                    {ShowSprite(row[fields[0]], row[fields[1]], 75, 75)}
+                                    <Sprite pokedexNr={row[fields[0]]} isShiny={row[fields[1]]} height={75} width={75} />
                                     {displayBall(row[fields[2]], 40, 40)}
                                 </div>
                                 <div className={styles.lang}>
@@ -193,15 +192,6 @@ function TableMobile(data, fields) {
             {renderRow(row, index)}
         </React.Fragment>
     ));
-}
-
-
-function ShowSprite(pokedexNr, isShiny, height, width) {
-    if (isShiny == "FALSE") {
-        return (<Sprite pokedexNr={pokedexNr} height={height} width={width} />);
-    } else {
-        return (<ShinySprite pokedexNr={pokedexNr} height={height} width={width} />);
-    }
 }
 
 function displayBall(ball, height, width) {
