@@ -176,7 +176,6 @@ export default function Post({ sheetnames, sheetname, event, sheetJson, tablehea
                     <h3 className="event-name">{dropdownEvents(sheetnames, sheetname, event)}</h3>
                 </div>
                 <div className="event-table-container">
-                    {console.log(sheet)}
                     <Table head={tablehead} data={sheetJson} fields={sheet} device={device} />
                 </div>
             </main>

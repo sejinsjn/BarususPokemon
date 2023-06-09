@@ -1,6 +1,8 @@
 import styles from './Table.module.css';
 import Image from 'next/image'
 import React, { useState } from 'react';
+import Sprite from '/components/Sprite';
+import ShinySprite from '/components/ShinySprite';
 
 export default function Table({ head, data, fields, device }) {
 
@@ -54,7 +56,7 @@ function TableBody(data, fields) {
                 <div className={styles.event }>
                     <div className={styles.sprite}>
                         <div>
-                            {displaySprite(row[fields[0]], row[fields[1]], 75, 75)}
+                            {ShowSprite(row[fields[0]], row[fields[1]],  75, 75) }
                             {displayBall(row[fields[2]], 40, 40)}
                         </div>
                         <div className={styles.lang }>
@@ -134,7 +136,7 @@ function TableMobile(data, fields) {
                         <div className={styles.event} >
                             <div className={styles.sprite}>
                                 <div>
-                                    {displaySprite(row[fields[0]], row[fields[1]], 75, 75)}
+                                    {ShowSprite(row[fields[0]], row[fields[1]], 75, 75)}
                                     {displayBall(row[fields[2]], 40, 40)}
                                 </div>
                                 <div className={styles.lang}>
@@ -194,31 +196,18 @@ function TableMobile(data, fields) {
 }
 
 
-
-function displaySprite(pokedexNr, isShiny, height, width) {
-    if (pokedexNr === undefined || pokedexNr === "") return <p></p>;
-
-    const swshShinyURL = "https://www.serebii.net/Shiny/SWSH/";
-    const swshNormalURL = "https://www.serebii.net/swordshield/pokemon/";
-    const svShinyURL = "https://www.serebii.net/Shiny/SV/new/";
-    const svNormalURL = "https://www.serebii.net/scarletviolet/pokemon/new/";
-
-    if (parseInt(pokedexNr) <= 905)
-        if (isShiny == "TRUE")
-            return loadIMG(swshShinyURL, pokedexNr, height, width);
-        else
-            return loadIMG(swshNormalURL, pokedexNr, height, width);
-    else
-        if (isShiny == "TRUE")
-            return loadIMG(svShinyURL, pokedexNr, height, width);
-        else
-            return loadIMG(svNormalURL, pokedexNr, height, width);
+function ShowSprite(pokedexNr, isShiny, height, width) {
+    if (isShiny == "FALSE") {
+        return (<Sprite pokedexNr={pokedexNr} height={height} width={width} />);
+    } else {
+        return (<ShinySprite pokedexNr={pokedexNr} height={height} width={width} />);
+    }
 }
 
 function displayBall(ball, height, width) {
     if (ball === undefined || ball === "") return <p></p>;
 
-    const ballURL = "https://www.serebii.net/itemdex/sprites/pgl/";
+    const ballURL = "https://www.serebii.net/itemdex/sprites/sv/";
 
     return loadIMG(ballURL, ball.toLowerCase() + "ball", height, width);
 }
