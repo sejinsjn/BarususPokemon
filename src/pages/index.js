@@ -75,9 +75,9 @@ function AboutMe() {
 
 function MyWishlist() {
     const items = [
-        'JPN Pokemon Center Bday Eevee / Pikachu',
         'Winter 2020 World Hobby Fair Gmax Lapras / Coalossal',
-        '20th Anni Mew, Shaymin, Genesect and Arceus',
+        'JPN Pokemon Center Bday Eevee / Pikachu',
+        'SG Pokemon Center Bday Eevee / Pikachu',
         '(KOR) Shiny G-Articuno',
         'Shiny Rayquaza Events',
         'Active Serial Codes'
@@ -126,7 +126,7 @@ function MyPokemon() {
                 </div>
                 <div className="pokemon-description">
                     <p>Events that I will farm during Gen9. This will be updated accordingly.
-                        Still waiting for HOME combatibility :|</p>
+                        Still waiting for HOME update. Shit is slow af :|</p>
                 </div>
             </div>
             <div className="pokemon-card">

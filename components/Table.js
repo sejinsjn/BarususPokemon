@@ -2,6 +2,8 @@ import styles from './Table.module.css';
 import Image from 'next/image'
 import React, { useState } from 'react';
 import Sprite from '/components/Sprite';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 export default function Table({ head, data, fields, device }) {
 
@@ -111,17 +113,10 @@ function TableMobile(data, fields) {
     const [expandedRows, setExpandedRows] = useState([]);
 
     const toggleRow = (index) => {
-        const icon = document.getElementById(index);
-        if (icon.classList.contains("fa-rotate-180")) {
-            icon.classList.remove("fa-rotate-180")
-        } else {
-            icon.classList.add("fa-rotate-180");
-        }
-        
         if (expandedRows.includes(index)) {
-            setExpandedRows(expandedRows.filter((rowIndex) => rowIndex !== index));
+          setExpandedRows(expandedRows.filter((rowIndex) => rowIndex !== index));
         } else {
-            setExpandedRows([...expandedRows, index]);
+          setExpandedRows([...expandedRows, index]);
         }
     };
 
@@ -145,8 +140,11 @@ function TableMobile(data, fields) {
                             </div>
                             <div className={styles.eventname}>{row[fields[5]]}</div>
                             <div>
-                                <i id={index } className="fa-solid fa-chevron-down"
-                                    onClick={() => toggleRow(index)}></i>
+                                <FontAwesomeIcon
+                                  icon={faChevronDown}
+                                  className={`chevron-icon ${isExpanded ? 'fa-rotate-180' : ''}`}
+                                  onClick={() => toggleRow(index)}
+                                />
                             </div>
                         </div>
                     </td>

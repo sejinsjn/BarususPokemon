@@ -94,8 +94,9 @@
     padding: 3px;
 }
 
-@media only screen and (max-device-width: 700px) {
 
+
+@media only screen and (max-device-width: 700px) {
     .tableMobile {
         width: 80vw !important;
     }
@@ -156,4 +157,22 @@
     .hidden {
         display: none;
     }
+
+    @keyframes rotateAnimation {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(180deg);
+        }
+    }
+
+    .fa-rotate-180 {
+        animation-name: rotateAnimation;
+        animation-duration: 1s;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;
+    }
+
 }
