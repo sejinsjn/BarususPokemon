@@ -46,9 +46,9 @@ export async function getServerSideProps(context) {
   
     // Get all spreadsheets
     await getAllSheets(fortradeSpreadSheetId);
-    await getAllSheets(gen8eventsSpreadSheetId);
-    await getAllSheets(gen9eventsSpreadSheetId);
-    await getAllSheets(mycollectionSpreadSheetId);
+    //await getAllSheets(gen8eventsSpreadSheetId);
+    //await getAllSheets(gen9eventsSpreadSheetId);
+    //await getAllSheets(mycollectionSpreadSheetId);
   
     function search(query) {
       // Make the query case-insensitive
