@@ -66,6 +66,8 @@ export async function getServerSideProps({ query }) {
 
         const sheetnames = spreadsheet?.data?.sheets?.map((sheet) => sheet?.properties?.title) || [];
 
+        context.res.setHeader('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate');
+
         return {
             props: {
                 sheetname,
