@@ -26,7 +26,7 @@ const navItems = [
     }
 ];
 
-export async function getServerSideProps({ query }) {
+export async function getServerSideProps({ req, res, query }) {
     try {
         const credential = JSON.parse(
             Buffer.from(process.env.GOOGLE_SERVICE_KEY, "base64").toString().replace(/\n/g, "")
@@ -66,7 +66,7 @@ export async function getServerSideProps({ query }) {
 
         const sheetnames = spreadsheet?.data?.sheets?.map((sheet) => sheet?.properties?.title) || [];
 
-        context.res.setHeader('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate');
+        res.setHeader('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate');
 
         return {
             props: {

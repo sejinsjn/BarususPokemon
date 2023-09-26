@@ -28,7 +28,7 @@ const navItems = [
     }
 ];
 
-export async function getServerSideProps({ query }) {
+export async function getServerSideProps({ req, res, query }) {
     const credential = JSON.parse(
         Buffer.from(process.env.GOOGLE_SERVICE_KEY, "base64").toString().replace(/\n/g, "")
     );
@@ -93,7 +93,7 @@ export async function getServerSideProps({ query }) {
         mycollection: [0, 5, 6, 2, 1, 3, 10, 9, 8, 11, 12, 13, 14, 15, 16, 17],
     }
 
-    context.res.setHeader('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate');
+    res.setHeader('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate');
 
     return {
         props: {
