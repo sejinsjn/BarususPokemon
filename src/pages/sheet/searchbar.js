@@ -24,62 +24,75 @@ export async function getServerSideProps(context) {
     let allData = [];
   
     async function getAllSheets(spreadsheetId) {
-      // Get the spreadsheet details
-      const spreadsheet = await googlesheets.spreadsheets.get({
-        spreadsheetId,
-      });
-  
-      // Get the names of all sheets in the spreadsheet
-      const sheetNames = spreadsheet.data.sheets.map(sheet => sheet.properties.title);
-  
-      // Get the data from each sheet
-      for (const sheetName of sheetNames) {
-        const response = await googlesheets.spreadsheets.values.get({
+        // Get the spreadsheet details
+        const spreadsheet = await googlesheets.spreadsheets.get({
           spreadsheetId,
-          range: sheetName,
         });
-  
-        // Store the data
-        allData.push(...response.data.values);
+      
+        // Get the names of all sheets in the spreadsheet
+        const sheetNames = spreadsheet.data.sheets.map(sheet => sheet.properties.title);
+      
+        // Create an array of promises
+        const promises = sheetNames.map(sheetName => 
+          googlesheets.spreadsheets.values.get({
+            spreadsheetId,
+            range: sheetName,
+          })
+        );
+      
+        // Wait for all promises to resolve
+        const allSheetsData = await Promise.all(promises);
+      
+        // Store the data from each sheet
+        allSheetsData.forEach(response => {
+          allData.push(...response.data.values);
+        });
       }
-    }
+      
   
     // Get all spreadsheets
     await getAllSheets(fortradeSpreadSheetId);
-    //await getAllSheets(gen8eventsSpreadSheetId);
-    //await getAllSheets(gen9eventsSpreadSheetId);
-    //await getAllSheets(mycollectionSpreadSheetId);
-  
-    function search(query) {
-      // Make the query case-insensitive
-      query = query.toLowerCase();
-  
-      const results = allData.filter(row => {
-        // Convert the row to a string and make it case-insensitive
-        const rowStr = row.join(' ').toLowerCase();
-  
-        // Check if the row contains the query
-        return rowStr.includes(query);
-      });
-  
-      return results;
-    }
-  
-    console.log(search("pikachu"));
+    await getAllSheets(gen8eventsSpreadSheetId);
+    await getAllSheets(gen9eventsSpreadSheetId);
+    await getAllSheets(mycollectionSpreadSheetId);
   
     // Set Cache-Control header
     context.res.setHeader('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate');
   
     return {
-      props: {},
+      props: {
+        allData: allData,
+      },
     };
   }
   
 
 
-export default function Post(props) {
+export default function Post({ allData }) {
+    function search(query) {
+        // Make the query case-insensitive
+        query = query.toLowerCase();
+
+        const results = allData.filter(row => {
+        // Convert the row to a string and make it case-insensitive
+        const rowStr = row.join(' ').toLowerCase();
+
+        // Check if the row contains the query
+        return rowStr.includes(query);
+        });
+
+        return results;
+    }
+
     return (
         <div className="nextjs">
+            {search("pikachu").map((row, index) => (
+                <div key={index}>
+                {row.map((cell, i) => (
+                    <span key={i}>{cell} </span>
+                ))}
+                </div>
+            ))}
         </div>
     );
 }
