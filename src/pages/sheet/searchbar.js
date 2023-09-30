@@ -1,5 +1,5 @@
 import { google } from 'googleapis';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Footer from "/components/Footer";
 import Link from 'next/link'
 import Header from "/components/Header";
@@ -96,11 +96,50 @@ export async function getServerSideProps(context) {
     };
   }
   
+  function useWindowSize() {
+    // Initialize state with undefined width/height so server and client renders match
+    // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+    const [windowSize, setWindowSize] = useState({
+        width: undefined,
+        height: undefined,
+    });
+
+    useEffect(() => {
+        // only execute all the code below in client side
+        // Handler to call on window resize
+        function handleResize() {
+            // Set window width/height to state
+            setWindowSize({
+                width: window.innerWidth,
+                height: window.innerHeight,
+            });
+        }
+
+        // Add event listener
+        window.addEventListener("resize", handleResize);
+
+        // Call handler right away so state gets updated with initial window size
+        handleResize();
+
+        // Remove event listener on cleanup
+        return () => window.removeEventListener("resize", handleResize);
+    }, []); // Empty array ensures that effect is only run on mount
+    return windowSize;
+}
 
 
 export default function Post({ allData }) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
+
+  const size = useWindowSize();
+    let device = "";
+    if (size.width < 1000) {
+        device = "mobile";
+    } else {
+        device = "desktop";
+    }
+
 
   const fields = {
     fortrade: [0, 5, 6, 2, 1, 3, 10, 9, 8, 11, 12, 13, 14, 15, 16, 17],
@@ -116,10 +155,15 @@ export default function Post({ allData }) {
       const lowerCaseQuery = query.toLowerCase();
 
       const results = allData.filter(row => {
+        // Check if the first value of the row is not empty
+        if (row[0] === '' || row.length <= 1) {
+          return false;
+        }
+
         const rowStr = row.join(' ').toLowerCase();
         return rowStr.includes(lowerCaseQuery);
       });
-
+      console.log(results);
       setResults(results);
     } else {
       setResults([]);
@@ -142,11 +186,7 @@ export default function Post({ allData }) {
                   </form>
                 </div>
                 <div className="event-table-container">
-                  <ul>
-                    {results.map((result, index) => (
-                      <li key={index}>{result}</li>
-                    ))}
-                  </ul>
+                  <Table head={tablehead} data={results} fields={fields["fortrade"]} device={device} />
                 </div>
             </main>
             <Footer />
