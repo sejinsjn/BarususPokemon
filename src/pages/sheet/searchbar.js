@@ -1,4 +1,34 @@
 import { google } from 'googleapis';
+import { useState } from 'react';
+import Footer from "/components/Footer";
+import Link from 'next/link'
+import Header from "/components/Header";
+import Table from "/components/Table";
+
+const navItems = [
+  {
+      url: '/',
+      label: 'Home'
+  },
+  {
+      url: '/sheet/fortrade',
+      label: 'For Trade'
+  },
+  {
+      url: '/sheet/gen8events',
+      label: 'Gen 8'
+  },
+  {
+      url: '/sheet/gen9events',
+      label: 'Gen 9'
+  },
+  {
+      url: '/sheet/mycollection',
+      label: 'My Collection'
+  }
+];
+
+const tablehead = ['Pokemon', 'Characteristics', 'Other Info', 'Trade History', 'Disclosure'];
 
 export async function getServerSideProps(context) {
     // Fetch data from API
@@ -69,30 +99,57 @@ export async function getServerSideProps(context) {
 
 
 export default function Post({ allData }) {
-    function search(query) {
-        // Make the query case-insensitive
-        query = query.toLowerCase();
+  const [query, setQuery] = useState('');
+  const [results, setResults] = useState([]);
 
-        const results = allData.filter(row => {
-        // Convert the row to a string and make it case-insensitive
+  const fields = {
+    fortrade: [0, 5, 6, 2, 1, 3, 10, 9, 8, 11, 12, 13, 14, 15, 16, 17],
+    farmed: [0, 4, 5, 3, 2, 1, 9, 8, 7, 10, 11, 12, 13, 14, 15, 16],
+    mycollection: [0, 5, 6, 2, 1, 3, 10, 9, 8, 11, 12, 13, 14, 15, 16, 17],
+  }
+
+  const handleInputChange = (event) => {
+    const query = event.target.value;
+    setQuery(query);
+
+    if (query.length >= 3) {
+      const lowerCaseQuery = query.toLowerCase();
+
+      const results = allData.filter(row => {
         const rowStr = row.join(' ').toLowerCase();
+        return rowStr.includes(lowerCaseQuery);
+      });
 
-        // Check if the row contains the query
-        return rowStr.includes(query);
-        });
-
-        return results;
+      setResults(results);
+    } else {
+      setResults([]);
     }
+  };
 
-    return (
-        <div className="nextjs">
-            {search("pikachu").map((row, index) => (
-                <div key={index}>
-                {row.map((cell, i) => (
-                    <span key={i}>{cell} </span>
-                ))}
+  return (
+    <div className="nextjs">
+            <link rel="stylesheet" href="/static/css/index.css" />
+            <Header navItems={navItems} />
+            <main>
+                <div className="table-nav">
+                  <form onSubmit={(event) => event.preventDefault()}>
+                    <input
+                      type="text"
+                      value={query}
+                      onChange={handleInputChange}
+                      placeholder="Search..."
+                    />
+                  </form>
                 </div>
-            ))}
+                <div className="event-table-container">
+                  <ul>
+                    {results.map((result, index) => (
+                      <li key={index}>{result}</li>
+                    ))}
+                  </ul>
+                </div>
+            </main>
+            <Footer />
         </div>
-    );
+  );
 }
