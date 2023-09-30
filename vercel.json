@@ -2,7 +2,7 @@
     "crons": [
       {
         "path": "/scripts/recache",
-        "schedule": "20 22 * * *"
+        "schedule": "25 22 * * *"
       }
     ]
   }
