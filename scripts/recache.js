@@ -1,18 +1,22 @@
-const axios = require('axios');
+const https = require('https');
 
-async function recache() {
-  // Fetch the dynamic paths from your API
-  const paths = await getDynamicPaths();
+module.exports = async (req, res) => {
+  https.get('https://barusu.vercel.app/sheet/searchbar', (response) => {
+    let data = '';
 
-  // Make a request to each path
-  for (const path of paths) {
-    await axios.get(`https://barusu.vercel.app/sheet/${path}`);
-  }
-}
+    // A chunk of data has been received.
+    response.on('data', (chunk) => {
+      data += chunk;
+    });
 
-async function getDynamicPaths() {
-  // Replace this with the actual logic to fetch the dynamic paths
-  return ['searchbar'];
-}
+    // The whole response has been received.
+    response.on('end', () => {
+      console.log(data);
+      // Your code to recache data goes here
+      res.status(200).send('Data recached successfully');
+    });
 
-recache();
+  }).on("error", (err) => {
+    console.log("Error: " + err.message);
+  });
+};
