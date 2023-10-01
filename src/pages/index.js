@@ -143,9 +143,8 @@ function MyPokemon() {
                     <Link className="" href="/sheet/searchbar">Search</Link>
                 </div>
                 <div className="pokemon-description">
-                    <p>If you don't want to go through all the links, you can use this to search for any Pokemon in my sheet. 
-                        Its not completely done yet but works. Notice: You most likely will need to search for the Eventname or
-                        use the Pokedexnumber, if you want specific Pokemon.
+                    <p>If you don&lsquo;t want to go through all the links, you can use this to search for any Pokemon in my sheet. 
+                        Its not completely done yet but works.
                     </p>
                 </div>
             </div>
