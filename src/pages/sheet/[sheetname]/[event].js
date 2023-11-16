@@ -93,8 +93,6 @@ export async function getServerSideProps({ req, res, query }) {
         mycollection: [0, 5, 6, 2, 1, 3, 10, 9, 8, 11, 12, 13, 14, 15, 16, 17],
     }
 
-    res.setHeader('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate');
-
     return {
         props: {
             tablehead,
