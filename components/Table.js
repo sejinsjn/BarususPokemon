@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 export default function Table({ head, data, fields, device }) {
-
     if (device == "desktop") {
         return (
             <table className={styles.tableDesktop}>

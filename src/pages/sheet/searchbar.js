@@ -1,7 +1,6 @@
 import { google } from 'googleapis';
 import React, { useState, useEffect } from 'react';
 import Footer from "/components/Footer";
-import Link from 'next/link'
 import Header from "/components/Header";
 import Table from "/components/Table";
 
@@ -52,8 +51,11 @@ export async function getServerSideProps(context) {
     process.env.SHEET_GEN9,
     process.env.SHEET_MYCOLLECTION
   ];
-
-  let allData = [];
+  
+  let fortradeData = [];
+  let gen8Data = [];
+  let gen9Data = [];
+  let mycollectionData = [];
 
   async function getAllSheets(spreadsheetId) {
     // Get the spreadsheet details
@@ -82,7 +84,20 @@ export async function getServerSideProps(context) {
     });
   
     // Add this array to allData
-    allData.push(sheetData);
+    switch(spreadsheetId){
+      case  process.env.SHEET_FORTRADE:
+        fortradeData.push(sheetData); 
+        break;
+      case  process.env.SHEET_GEN8:
+        gen8Data.push(sheetData); 
+        break;
+      case  process.env.SHEET_GEN9:
+        gen9Data.push(sheetData); 
+        break;
+      case  process.env.SHEET_MYCOLLECTION:
+        mycollectionData.push(sheetData); 
+        break;
+    }
   }
     
   // Get all spreadsheets
@@ -93,13 +108,10 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      allData: allData,
+      allData: [fortradeData, gen8Data, gen9Data, mycollectionData],
     },
   };
 }
-
-
-
   
 function useWindowSize() {
   // Initialize state with undefined width/height so server and client renders match
@@ -132,7 +144,6 @@ function useWindowSize() {
   return windowSize;
 }
 
-
 export default function Post({ allData }) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
@@ -149,7 +160,7 @@ export default function Post({ allData }) {
     fortrade: [0, 5, 6, 2, 1, 3, 10, 9, 8, 11, 12, 13, 14, 15, 16, 17],
     farmed: [0, 4, 5, 3, 2, 1, 9, 8, 7, 10, 11, 12, 13, 14, 15, 16],
     mycollection: [0, 5, 6, 2, 1, 3, 10, 9, 8, 11, 12, 13, 14, 15, 16, 17],
-}
+  }
   
 const handleInputChange = (event) => {
     const query = event.target.value;
@@ -158,7 +169,7 @@ const handleInputChange = (event) => {
     if (query.length >= 3) {
       const lowerCaseQuery = query.toLowerCase();
   
-      const results = allData.flatMap((data,i) => data.filter(row => {
+      const fortradeResult = allData[0].flatMap((data,i) => data.filter(row => {
         // Check if the first value of the row is not empty
         if (row[0] === '' || row.length <=1) {
           return false;
@@ -167,7 +178,42 @@ const handleInputChange = (event) => {
         const rowStr = row.join(' ').toLowerCase();
         return rowStr.includes(lowerCaseQuery);
       }));
-      console.log(results);
+
+      const gen8eventsResult = allData[1].flatMap((data,i) => data.filter(row => {
+        // Check if the first value of the row is not empty
+        if (row[0] === '' || row.length <=1) {
+          return false;
+        }
+  
+        const rowStr = row.join(' ').toLowerCase();
+        return rowStr.includes(lowerCaseQuery);
+      }));
+
+      const gen9eventsResult = allData[2].flatMap((data,i) => data.filter(row => {
+        // Check if the first value of the row is not empty
+        if (row[0] === '' || row.length <=1) {
+          return false;
+        }
+  
+        const rowStr = row.join(' ').toLowerCase();
+        return rowStr.includes(lowerCaseQuery);
+      }));
+
+      const mycollectionResult = allData[3].flatMap((data,i) => data.filter(row => {
+        // Check if the first value of the row is not empty
+        if (row[0] === '' || row.length <=1) {
+          return false;
+        }
+  
+        const rowStr = row.join(' ').toLowerCase();
+        return rowStr.includes(lowerCaseQuery);
+      }));
+      
+      results[0] = fortradeResult;
+      results.push(gen8eventsResult);
+      results.push(gen9eventsResult);
+      results.push(mycollectionResult);
+
       setResults(results);
     } else {
       setResults([]);
@@ -186,11 +232,42 @@ return (
                   value={query}
                   onChange={handleInputChange}
                   placeholder="Search..."
+                  style={{
+                    borderRadius: '8px',
+                    padding: '10px',
+                    margin: '20px'
+                  }}
                 />
               </form>
             </div>
             <div className="event-table-container">
-              <Table head={tablehead} data={results} fields={fields["fortrade"]} device={device} />
+              {results.length >= 1 && results[0].length > 0 && (
+                <div className='result-container'>
+                  <h2>Fortrade</h2>
+                  <Table head={tablehead} data={results[0]} fields={fields["fortrade"]} device={device} />
+                </div>
+              )}
+
+              {results.length >= 2 && results[1].length > 0 && (
+                <div className='result-container'>
+                  <h2>Gen 8 Events</h2>
+                  <Table head={tablehead} data={results[1]} fields={fields["farmed"]} device={device} />
+                </div>
+              )}
+
+              {results.length >= 3 && results[2].length > 0 && (
+                <div className='result-container'>
+                  <h2>Gen 9 Events</h2>
+                  <Table head={tablehead} data={results[2]} fields={fields["farmed"]} device={device} />
+                </div>
+              )}
+
+              {results.length >= 4 && results[3].length > 0 && (
+                <div className='result-container'>
+                  <h2>My Collection</h2>
+                  <Table head={tablehead} data={results[3]} fields={fields["mycollection"]} device={device} />
+                </div>
+              )}
             </div>
         </main>
         <Footer />

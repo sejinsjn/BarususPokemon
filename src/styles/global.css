@@ -252,3 +252,16 @@ main {
     }
 }
 
+.result-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.result-container h2{
+    margin: 10px;
+}
+
+.result-container Table{
+    margin: 10px;
+}
