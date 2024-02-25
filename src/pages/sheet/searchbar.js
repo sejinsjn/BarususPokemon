@@ -162,13 +162,12 @@ export default function Post({ allData }) {
     mycollection: [0, 5, 6, 2, 1, 3, 10, 9, 8, 11, 12, 13, 14, 15, 16, 17],
   }
   
-const handleInputChange = (event) => {
+  const handleInputChange = (event) => {
     const query = event.target.value;
     setQuery(query);
   
     if (query.length >= 3) {
       const lowerCaseQuery = query.toLowerCase();
-  
       const fortradeResult = allData[0].flatMap((data,i) => data.filter(row => {
         // Check if the first value of the row is not empty
         if (row[0] === '' || row.length <=1) {
@@ -209,19 +208,16 @@ const handleInputChange = (event) => {
         return rowStr.includes(lowerCaseQuery);
       }));
       
-      results[0] = fortradeResult;
-      results.push(gen8eventsResult);
-      results.push(gen9eventsResult);
-      results.push(mycollectionResult);
-
-      setResults(results);
+      // Combine all the results into a single array
+      const updatedResults = [fortradeResult, gen8eventsResult, gen9eventsResult, mycollectionResult];
+      setResults(updatedResults);
     } else {
       setResults([]);
     }
-};
+  };
   
-return (
-<div className="nextjs">
+  return (
+      <div className="nextjs">
         <link rel="stylesheet" href="/static/css/index.css" />
         <Header navItems={navItems} />
         <main>
@@ -272,5 +268,5 @@ return (
         </main>
         <Footer />
     </div>
-);
+  );
 }
